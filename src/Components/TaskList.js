@@ -10,7 +10,7 @@ function TaskList() {
 
   const taskList = () => {
     if (tasks) {
-      return tasks.map((task) => <Task task={task} />);
+      return tasks.map((task, index) => <Task task={task} key={index} />);
     }
   };
 

@@ -5,7 +5,9 @@ export const taskListSlice = createSlice({
   initialState: ["test"],
   reducers: {
     addTask: (state, action) => {
-      state.tasks.push(action.payload);
+      console.log(action);
+      console.log(state);
+      state.push(action.payload);
     },
   },
 });
