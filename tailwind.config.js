@@ -7,11 +7,16 @@ module.exports = {
     extend: {
       listStyleType: ["hover", "focus"],
     },
+    fontFamily: {
+      sans: ["Helvetica"],
+    },
   },
   variants: {
     extend: {
-      ringColor: ["group-hover"],
+      ringWidth: ["active"],
+      ringColor: ["group-focus", "active"],
       borderColor: ["group-hover"],
+      fontWeight: ["hover"],
     },
   },
   plugins: [require("@tailwindcss/forms")],

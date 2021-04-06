@@ -6,11 +6,11 @@ import { getTaskList } from "./AddNewTask/AddNewTaskSlice";
 import Task from "./Task";
 
 function TaskList() {
-  const tasks = useSelector(getTaskList);
+  const taskList = useSelector(getTaskList);
 
-  const taskList = () => {
-    if (tasks) {
-      return tasks.map((task, index) => <Task task={task} key={index} />);
+  const buildTaskList = () => {
+    if (taskList) {
+      return taskList.map((task, index) => <Task task={task} key={index} />);
     }
   };
 
@@ -21,7 +21,7 @@ function TaskList() {
           <h1 class="text-3xl font-bold text-gray-900 text-center">Tasks</h1>
         </div>
       </div>
-      <div class="divide-y">{taskList()}</div>
+      <div class="divide-y">{buildTaskList()}</div>
       <br />
       {AddNewTask()}
     </div>
