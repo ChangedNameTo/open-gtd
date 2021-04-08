@@ -24,7 +24,12 @@ function TaskRowDisplay() {
           <h1 className="text-3xl font-bold text-gray-900 text-center">Tasks</h1>
         </div>
       </div>
-      <div className="divide-y">{buildTaskList()}</div>
+      <div 
+        className="divide-y"
+        id="taskList"
+      >
+        {buildTaskList()}
+      </div>
       <br />
       {AddNewTask()}
     </div>

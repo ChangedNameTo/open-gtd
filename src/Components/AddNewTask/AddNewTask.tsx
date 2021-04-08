@@ -29,12 +29,14 @@ function AddNewTask() {
 
   const createNewTask = () => {
     dispatch(addTask(taskText));
+    setTaskText('');
   };
 
   return (
     <div className="space-y-2">
       <button
         className="w-full items-center px-4 bg-green-500 rounded-md shadow-m text-m font-medium border-green-600 border-2 hover:bg-green-600 text-white bold active:ring-green-500"
+        id="addTaskButton"
         onClick={() => toggleVisible()}
       >
         Add New Task
@@ -43,11 +45,17 @@ function AddNewTask() {
         <input
           type="text"
           className="rounded-md rounded-r-none w-full border-green-100 focus:ring-0 focus:border-transparent"
+          id="addTaskInput"
           placeholder="Enter new task"
+          value={taskText}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setTaskText(e.target.value)}
         />
         <span className="flex items-center bg-green-600 rounded rounded-l-none border-0 px-3 hover:bg-green-500">
-          <button className="focus:outline-none" onClick={() => createNewTask()}>
+          <button
+            className="focus:outline-none"
+            id="submitNewTaskButton"
+            onClick={() => createNewTask()}
+          >
             {submitIcon()}
           </button>
         </span>
