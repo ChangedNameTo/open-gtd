@@ -1,36 +1,41 @@
-import {immerable} from "immer"
+import {enableMapSet, immerable} from "immer"
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../store';
 
-export class Task {
-  title: string;
-  created: number;
+enableMapSet()
 
-  constructor(title: string) {
-    this.created = Date.now();
-    this.title = title;
-  }
-
-  public getTitle() {
-    return this.title
-  }
+interface Task {
+  task:string
 }
-
 export class TaskList {
   [immerable] = true;
-  tasks: Array<Task>
+  tasks: Task;
+  selectedTask: number;
 
-  constructor(taskArray: Array<Task>) {
+  constructor(taskArray: Task, selectedTask: number) {
     this.tasks = taskArray
+    this.selectedTask = selectedTask;
+  }
+
+  getSelectedTask() {
+    return this.selectedTask 
+  }
+
+  getTasks() {
+    return this.tasks
   }
 }
 
 const initialState = new TaskList(
-  [
-    new Task('Followup on the email with Tedrick'),
-    new Task('Reply to Jennifer'),
-    new Task('This is a really long sentence to ensure that text wrapping and box sizing works properly'),
-  ]
+  {
+    byId:{
+      0:{ task: 'Followup on the email with Tedrick'},
+      1:{ task: 'Send a message to Jennifer'},
+      2:{ task: 'Testing'},
+    },
+    allIds:[0,1,2]
+  },
+  -1
 )
 
 
@@ -39,12 +44,16 @@ export const taskListSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state: TaskList, action: PayloadAction<string>) => {
-      const task = new Task(action.payload)
-      state.tasks.push(task);
+      const task = {}
+      // state.tasks.push(task)
     },
+    selectTask: (state: TaskList, action: PayloadAction<number>) => {
+      state.selectedTask = action.payload
+    }
   },
 });
 
-export const {addTask} = taskListSlice.actions;
-export const getTaskList = (state: RootState) => state.tasks;
+export const {addTask, selectTask} = taskListSlice.actions;
+export const getTaskList = (state: RootState) => state.tasks.getTasks();
+export const getSelectedTask = (state: RootState) => state.tasks.getSelectedTask();
 export default taskListSlice.reducer;

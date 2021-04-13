@@ -1,4 +1,5 @@
-import taskList from './TaskList';
+import taskList from "./TaskList";
+import selectedTask from "./SelectedTask/SelectedTask";
 
 /**
  * This is the main task UI window pane. It contains the task list, folders, and task view.
@@ -18,13 +19,7 @@ function taskUI() {
           </div>
         </div>
         {taskList()}
-        <div className="flex-auto px-2">
-          <div className="header bg-white shadow">
-            <div className="max-w-4xl mx-auto py-2 px-1 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold text-gray-900 text-center">Info</h1>
-            </div>
-          </div>
-        </div>
+        {selectedTask()}
       </div>
     </div>
   );

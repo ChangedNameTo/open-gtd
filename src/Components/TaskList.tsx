@@ -1,8 +1,8 @@
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 
-import AddNewTask from './AddNewTask/AddNewTask';
-import {Task, getTaskList} from './AddNewTask/TaskListSlice';
-import TaskRow from './Task';
+import AddNewTask from "./AddNewTask/AddNewTask";
+import { getTaskList } from "./AddNewTask/TaskListSlice";
+import TaskRow from "./Task";
 
 /**
  * Creates the Task Rows for the main task UI.
@@ -13,7 +13,9 @@ function TaskRowDisplay() {
 
   const buildTaskList = () => {
     if (taskList) {
-      return taskList.tasks.map((task: Task, index: number) => <TaskRow task={task} key={index} />);
+      return taskList.map((task, index) => {
+        return <TaskRow task={task} key={index} />;
+      });
     }
   };
 
@@ -21,13 +23,12 @@ function TaskRowDisplay() {
     <div className="flex-auto px-2">
       <div className="header bg-white shadow">
         <div className="max-w-4xl mx-auto py-2 px-1 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900 text-center">Tasks</h1>
+          <h1 className="text-3xl font-bold text-gray-900 text-center">
+            Tasks
+          </h1>
         </div>
       </div>
-      <div 
-        className="divide-y"
-        id="taskList"
-      >
+      <div className="divide-y" id="taskList">
         {buildTaskList()}
       </div>
       <br />
