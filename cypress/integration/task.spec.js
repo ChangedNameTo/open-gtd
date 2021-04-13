@@ -28,5 +28,13 @@ context("Tasks", () => {
       cy.get("#submitNewTaskButton").click();
       cy.get("#addTaskInput").invoke("val").should("be.empty");
     });
+
+    it("Expects tasks to be saved between refreshes", () => {
+      cy.contains("Add New Task").click();
+      cy.get("#addTaskInput").type("Cypress test task");
+      cy.get("#submitNewTaskButton").click();
+      cy.reload();
+      cy.get("#taskList").contains("Cypress test task");
+    });
   });
 });
