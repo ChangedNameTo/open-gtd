@@ -1,4 +1,4 @@
-import taskList from "./TaskList";
+import taskList from "./TaskList/TaskList";
 import selectedTask from "./SelectedTask/SelectedTask";
 
 /**

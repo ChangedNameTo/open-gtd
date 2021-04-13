@@ -1,20 +1,20 @@
 import { useSelector } from "react-redux";
 
-import AddNewTask from "./AddNewTask/AddNewTask";
-import { getTaskList } from "./AddNewTask/TaskListSlice";
-import TaskRow from "./Task";
+import AddNewTask from "../AddNewTask/AddNewTask";
+import { getTaskIds} from "./TaskListSlice";
+import TaskRow from "../Task/Task";
 
 /**
  * Creates the Task Rows for the main task UI.
  * @returns {FunctionComponent}
  */
 function TaskRowDisplay() {
-  const taskList = useSelector(getTaskList);
+  const taskList = useSelector(getTaskIds);
 
   const buildTaskList = () => {
     if (taskList) {
-      return taskList.map((task, index) => {
-        return <TaskRow task={task} key={index} />;
+      return taskList.map((taskId, index) => {
+        return <TaskRow taskId={taskId} key={index} />;
       });
     }
   };

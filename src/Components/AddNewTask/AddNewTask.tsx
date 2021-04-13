@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState, useRef } from "react";
 
 import { FaCheckCircle } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
-import { addTask } from "./TaskListSlice";
+import { addTask } from "../TaskList/TaskListSlice";
 import { useAppDispatch } from "../../hooks";
 
 /**
