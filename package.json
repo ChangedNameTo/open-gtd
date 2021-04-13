@@ -17,7 +17,6 @@
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.3",
     "react-scripts": "4.0.3",
-    "redux-persist": "^6.0.0",
     "typedoc": "^0.20.35",
     "web-vitals": "^1.1.1"
   },
@@ -48,6 +47,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.4",
+    "@types/redux-persist": "^4.3.1",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
     "autoprefixer": "^9.8.6",
@@ -56,6 +56,8 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.23.1",
     "postcss": "^7.0.35",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
     "source-map-loader": "^2.0.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.4",
     "ts-loader": "^8.1.0",
