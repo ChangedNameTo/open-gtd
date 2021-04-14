@@ -10,7 +10,11 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add("add_task", (taskName) => {
+  cy.contains("Add New Task").click();
+  cy.get("#addTaskInput").type(taskName);
+  cy.get("#submitNewTaskButton").click();
+});
 //
 //
 // -- This is a child command --

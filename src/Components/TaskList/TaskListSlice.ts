@@ -8,7 +8,7 @@ enableMapSet();
 
 const initialState: TaskList = {
   taskList: { byId: {}, allIds: [] },
-  selectedTask: -1,
+  selectedTask: "-1",
 };
 
 export const taskListSlice = createSlice({
@@ -22,12 +22,18 @@ export const taskListSlice = createSlice({
       state.taskList.byId[newTaskId] = { task: action.payload };
       state.taskList.allIds.push(newTaskId);
     },
-    selectTask: (state: TaskList, action: PayloadAction<number>) => {
+    selectTask: (state: TaskList, action: PayloadAction<string>) => {
       state.selectedTask = action.payload;
     },
   },
 });
 
 export const { addTask, selectTask } = taskListSlice.actions;
+
 export const getTaskIds = (state: RootState) => state.tasks.taskList.allIds;
+export const getSelectedTask = (state: RootState) =>
+  state.tasks.selectedTask !== "-1"
+    ? state.tasks.taskList.byId[state.tasks.selectedTask]
+    : { task: "" };
+
 export default taskListSlice.reducer;

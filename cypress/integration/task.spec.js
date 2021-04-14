@@ -2,6 +2,7 @@
 
 context("Tasks", () => {
   beforeEach(() => {
+    cy.clearLocalStorage();
     cy.visit("http://localhost:3000");
   });
 
@@ -16,25 +17,32 @@ context("Tasks", () => {
     });
 
     it("Adds a new task", () => {
-      cy.contains("Add New Task").click();
-      cy.get("#addTaskInput").type("Cypress test task");
-      cy.get("#submitNewTaskButton").click();
+      cy.add_task("Cypress test task");
       cy.get("#taskList").contains("Cypress test task");
     });
 
     it("Adds a new task, and clears the text entry box", () => {
-      cy.contains("Add New Task").click();
-      cy.get("#addTaskInput").type("Cypress test task");
-      cy.get("#submitNewTaskButton").click();
+      cy.add_task("Cypress test task");
       cy.get("#addTaskInput").invoke("val").should("be.empty");
     });
 
     it("Expects tasks to be saved between refreshes", () => {
-      cy.contains("Add New Task").click();
-      cy.get("#addTaskInput").type("Cypress test task");
-      cy.get("#submitNewTaskButton").click();
+      cy.add_task("Cypress test task");
       cy.reload();
       cy.get("#taskList").contains("Cypress test task");
+    });
+  });
+
+  describe("Task List Functionality", () => {
+    it("Expects there to be no task selected on page load", () => {
+      cy.reload();
+      cy.get("#selectedTaskPane").invoke("val").should("be.empty");
+    });
+
+    it("Expects there to be a task selected after adding a task and clicking it", () => {
+      cy.add_task("Cypress test task");
+      cy.get("#taskId0").click();
+      cy.get("#selectedTaskPane").should("have.text", "Cypress test task");
     });
   });
 });

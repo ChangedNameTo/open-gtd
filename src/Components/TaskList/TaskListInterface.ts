@@ -10,5 +10,5 @@ interface NormalizedObjects<T> {
 
 export default interface TaskList {
   taskList: NormalizedObjects<Task>;
-  selectedTask: number;
+  selectedTask: string;
 }

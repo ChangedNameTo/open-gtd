@@ -8,10 +8,17 @@ import taskReducer from "./Components/TaskList/TaskListSlice";
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["tasks"],
+};
+
+const taskPersistConfig = {
+  key: "tasks",
+  storage,
+  blacklist: ["selectedTask"],
 };
 
 const reducers = combineReducers({
-  tasks: taskReducer,
+  tasks: persistReducer(taskPersistConfig, taskReducer),
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

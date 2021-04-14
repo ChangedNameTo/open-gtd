@@ -1,5 +1,5 @@
-import taskList from "./TaskList/TaskList";
-import selectedTask from "./SelectedTask/SelectedTask";
+import TaskRowDisplay from "./TaskList/TaskList";
+import SelectedTask from "./SelectedTask/SelectedTask";
 
 /**
  * This is the main task UI window pane. It contains the task list, folders, and task view.
@@ -18,8 +18,8 @@ function taskUI() {
             </div>
           </div>
         </div>
-        {taskList()}
-        {selectedTask()}
+        {TaskRowDisplay()}
+        {SelectedTask()}
       </div>
     </div>
   );

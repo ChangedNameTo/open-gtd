@@ -8,18 +8,19 @@ import { selectTask } from "../TaskList/TaskListSlice";
  * @param props {Object} Contains the Task object that users will click on. This is the basic unit of all of open-gtd.
  * @returns {FunctionComponent}
  */
-function TaskRow(props: { taskId: string; key: number }) {
+function TaskRow(props: { taskId: string }) {
   const dispatch = useAppDispatch();
   const task = useSelector((state: RootState) => state.tasks.taskList.byId[props.taskId]);
   
   const setSelectTask = () => {
-    dispatch(selectTask(props.key));
+    dispatch(selectTask(props.taskId));
   };
 
   return (
     <div>
       <button
-        className="w-full text-left hover:bg-gray-100 focus:bg-gray-200 rounded px-1 subpixel-antialiased font-mono"
+        id={`taskId${props.taskId}`}
+        className="w-full text-left hover:bg-gray-100 focus:bg-gray-200 rounded px-1 subpixel-antialiased font-mono focus:ring-0 focus:border-transparent"
         onClick={() => setSelectTask()}
       >
         {task.task}

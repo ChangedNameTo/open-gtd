@@ -1,8 +1,13 @@
+import { useSelector } from "react-redux";
+
+import {getSelectedTask} from "../TaskList/TaskListSlice"
 /**
  * After clicking on a task in
  * @returns {FunctionComponent}
  */
-function selectedTask() {
+function SelectedTask() {
+  const selectedTask = useSelector(getSelectedTask)
+  
   return (
     <div className="flex-auto px-2">
       <div className="header bg-white shadow">
@@ -10,10 +15,12 @@ function selectedTask() {
           <h1 className="text-3xl font-bold text-gray-900 text-center">Task</h1>
         </div>
       </div>
-      <div className="divide-y" id="taskList"></div>
+      <div id="selectedTaskPane">
+        {selectedTask.task}
+      </div>
       <br />
     </div>
   );
 }
 
-export default selectedTask;
+export default SelectedTask;
