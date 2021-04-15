@@ -12,7 +12,7 @@ function SelectedTask() {
     return;
   }
   return (
-    <div className="flex flex-auto flex-col px-2 border-left bg-gray-200 rounded-l-xl shadow-md py-2 min-h-full transition ease-in">
+    <div className="flex flex-auto flex-col px-2 border-left bg-gray-200 rounded-l-xl shadow-lg py-2 min-h-full transition ease-in border-gray-300">
       <h1 className="place-self-center text-3xl font-bold text-center bg-white flex-shrink w-min px-8">
         {selectedTask.task}
       </h1>
