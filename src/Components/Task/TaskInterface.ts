@@ -1,4 +1,5 @@
-
 export default interface Task {
-  task:string
+  task: string;
+  readonly created: number;
+  completed: number;
 }

@@ -1,6 +1,6 @@
-import navbar from './Components/Navbar';
-import footer from './Components/Footer';
-import taskUI from './Components/TaskUI';
+import navbar from "./Components/Navbar";
+import footer from "./Components/Footer";
+import taskUI from "./Components/TaskUI";
 
 /**
  * Returns the base application. This sets up the main UI frames.
@@ -8,10 +8,12 @@ import taskUI from './Components/TaskUI';
  */
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col h-screen">
       <header>{navbar()}</header>
-      <main className="flex-grow">{taskUI()}</main>
-      <footer>{footer()}</footer>
+      <main className="flex-1 overflow-y-auto mb-20">{taskUI()}</main>
+      <footer className="fixed bottom-0 w-full isolation-auto">
+        {footer()}
+      </footer>
     </div>
   );
 }

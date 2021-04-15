@@ -19,7 +19,11 @@ export const taskListSlice = createSlice({
       // state.addTask(action.payload);
       const newTaskId = String(state.taskList.allIds.length);
 
-      state.taskList.byId[newTaskId] = { task: action.payload };
+      state.taskList.byId[newTaskId] = {
+        task: action.payload,
+        created: Date.now(),
+        completed: -1,
+      };
       state.taskList.allIds.push(newTaskId);
     },
     selectTask: (state: TaskList, action: PayloadAction<string>) => {
@@ -34,6 +38,6 @@ export const getTaskIds = (state: RootState) => state.tasks.taskList.allIds;
 export const getSelectedTask = (state: RootState) =>
   state.tasks.selectedTask !== "-1"
     ? state.tasks.taskList.byId[state.tasks.selectedTask]
-    : { task: "" };
+    : { task: "", created: -1, completed: null };
 
 export default taskListSlice.reducer;
