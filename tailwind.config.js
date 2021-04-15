@@ -7,11 +7,42 @@ module.exports = {
     extend: {
       listStyleType: ["hover", "focus"],
     },
+    fontFamily: {
+      sans: ["Helvetica"],
+    },
+    keyframes: {
+      "fade-in-down": {
+        "0%": {
+          opacity: "0",
+          transform: "translateY(-10px)",
+        },
+        "100%": {
+          opacity: "1",
+          transform: "translateY(0)",
+        },
+      },
+      "fade-out-up": {
+        from: {
+          opacity: "1",
+          transform: "translateY(0px)",
+        },
+        to: {
+          opacity: "0",
+          transform: "translateY(10)",
+        },
+      },
+    },
+    animation: {
+      "fade-in-down": "fade-in-down 0.5s ease-out",
+      "fade-out-up": "fade-out-up 0.5s ease-out",
+    },
   },
   variants: {
     extend: {
-      ringColor: ["group-hover"],
+      ringWidth: ["active"],
+      ringColor: ["group-focus", "active"],
       borderColor: ["group-hover"],
+      fontWeight: ["hover"],
     },
   },
   plugins: [require("@tailwindcss/forms")],

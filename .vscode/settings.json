@@ -1,5 +1,7 @@
 {
     "git.ignoreLimitWarning": true,
     "editor.tabSize": 2,
-    "editor.formatOnSave": true
+    "cSpell.words": [
+        "immerable"
+    ]
 }
