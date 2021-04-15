@@ -1,6 +1,4 @@
-import {FaCheckCircle} from 'react-icons/fa';
-import {IconContext} from 'react-icons/lib';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 /**
  * Returns the navbar component
  * @return {FunctionComponent}
@@ -13,11 +11,11 @@ function navbar() {
           <div className="flex items-center justify-between h16">
             <div className="flex items-center">
               <div className="flex-shrink-0 py-1">
-                <IconContext.Provider value={{color: 'white', size: '30px'}}>
-                  <div>
-                    <FaCheckCircle />
-                  </div>
-                </IconContext.Provider>
+                <FontAwesomeIcon
+                  className="text-white"
+                  icon={["far", "check-circle"]}
+                  size="2x"
+                />
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">

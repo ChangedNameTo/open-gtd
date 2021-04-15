@@ -10,8 +10,10 @@ import { selectTask } from "../TaskList/TaskListSlice";
  */
 function TaskRow(props: { taskId: string }) {
   const dispatch = useAppDispatch();
-  const task = useSelector((state: RootState) => state.tasks.taskList.byId[props.taskId]);
-  
+  const task = useSelector(
+    (state: RootState) => state.tasks.taskList.byId[props.taskId]
+  );
+
   const setSelectTask = () => {
     dispatch(selectTask(props.taskId));
   };
@@ -20,7 +22,7 @@ function TaskRow(props: { taskId: string }) {
     <div>
       <button
         id={`taskId${props.taskId}`}
-        className="w-full text-left hover:bg-gray-100 focus:bg-gray-200 rounded px-1 subpixel-antialiased font-mono focus:ring-0 focus:border-transparent"
+        className="w-full text-left hover:bg-gray-100 focus:bg-gray-200 rounded px-1 subpixel-antialiased font-mono focus:ring-0 focus:border-transparent focus:outline-none"
         onClick={() => setSelectTask()}
       >
         {task.task}

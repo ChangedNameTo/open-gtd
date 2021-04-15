@@ -4,6 +4,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { addTask } from "../TaskList/TaskListSlice";
 import { useAppDispatch } from "../../hooks";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
  * Returns the AddNewTask Button, and the input it controls
@@ -63,7 +64,7 @@ function AddNewTask() {
   return (
     <div className="space-y-2">
       <button
-        className="w-full items-center px-4 bg-green-500 rounded-md shadow-m text-m font-medium border-green-600 border-2 hover:bg-green-600 text-white bold active:ring-green-500"
+        className="w-full items-center px-4 bg-green-500 rounded-md shadow-m text-m font-medium border-green-600 border-2 hover:bg-green-600 text-white bold active:ring-green-500 focus:outline-none"
         id="addTaskButton"
         onClick={() => toggleVisible()}
       >
@@ -86,7 +87,11 @@ function AddNewTask() {
             id="submitNewTaskButton"
             onClick={() => createNewTask()}
           >
-            {submitIcon()}
+            <FontAwesomeIcon
+              className="text-white py-auto"
+              icon={["fas", "check-circle"]}
+              size="2x"
+            />
           </button>
         </span>
       </div>
