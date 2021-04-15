@@ -1,7 +1,5 @@
 import { ChangeEvent, useEffect, useState, useRef } from "react";
 
-import { FaCheckCircle } from "react-icons/fa";
-import { IconContext } from "react-icons/lib";
 import { addTask } from "../TaskList/TaskListSlice";
 import { useAppDispatch } from "../../hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,16 +17,6 @@ function AddNewTask() {
   const dispatch = useAppDispatch();
 
   const toggleVisible = () => setVisible(!visible);
-
-  const submitIcon = () => {
-    return (
-      <IconContext.Provider value={{ color: "white", size: "20px" }}>
-        <div>
-          <FaCheckCircle />
-        </div>
-      </IconContext.Provider>
-    );
-  };
 
   const addTaskDivClasses = () => {
     return visible
