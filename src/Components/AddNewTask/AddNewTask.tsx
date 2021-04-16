@@ -69,12 +69,11 @@ function AddNewTask() {
             setTaskText(e.target.value)
           }
         />
-        <span className="flex items-center bg-green-600 rounded rounded-l-none border-0 px-3 hover:bg-green-500">
-          <button
-            className="focus:outline-none"
-            id="submitNewTaskButton"
-            onClick={() => createNewTask()}
-          >
+        <span
+          className="flex items-center bg-green-600 rounded rounded-l-none border-0 px-3 hover:bg-green-500 cursor-pointer duration-200 transition ease-in-out"
+          onClick={() => createNewTask()}
+        >
+          <button className="focus:outline-none" id="submitNewTaskButton">
             <FontAwesomeIcon
               className="text-white py-auto"
               icon={["fas", "check-circle"]}
