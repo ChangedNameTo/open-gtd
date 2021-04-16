@@ -31,18 +31,16 @@ context("Tasks", () => {
       cy.reload();
       cy.get("#taskList").contains("Cypress test task");
     });
-  });
 
-  describe("Task List Functionality", () => {
-    it("Expects there to be no task selected on page load", () => {
-      cy.reload();
-      cy.get("#selectedTaskPane").invoke("val").should("be.empty");
+    it("Expects tasks to not be added if the text is blank", () => {
+      cy.contains("Add New Task").click();
+      cy.get("#submitNewTaskButton").click();
+      cy.get("#taskId0").should("not.exist");
     });
 
-    it("Expects there to be a task selected after adding a task and clicking it", () => {
-      cy.add_task("Cypress test task");
-      cy.get("#taskId0").click();
-      cy.get("#selectedTaskPane").should("have.text", "Cypress test task");
+    it("Expects tasks to not be added if the text is spaces only", () => {
+      cy.add_task("   ");
+      cy.get("#taskId0").should("not.exist");
     });
   });
 });

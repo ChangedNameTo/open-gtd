@@ -68,6 +68,7 @@ function AddNewTask() {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setTaskText(e.target.value)
           }
+          onBlur={() => taskText.trim()}
         />
         <span
           className="flex items-center bg-green-600 rounded rounded-l-none border-0 px-3 hover:bg-green-500 cursor-pointer duration-200 transition ease-in-out"

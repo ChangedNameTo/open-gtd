@@ -54,6 +54,7 @@ function SelectedTask() {
       <div className="float-left mt-1">
         <span
           className="fa-layers fa-fw fa-2x group my-1 cursor-pointer"
+          id="closeSelectedTask"
           onClick={() => closeSelectedTask()}
         >
           <FontAwesomeIcon
@@ -89,7 +90,10 @@ function SelectedTask() {
     <div className="flex flex-col px-2 bg-gray-200 rounded-l-xl shadow-xl py-1 min-h-full transition ease-in border-gray-300 w-1/4">
       <div className="inline justify-center">
         {closeSelectedTaskButton()}
-        <h1 className="clear-right text-3xl font-bold text-center bg-white rounded-xl shadow-md flex-shrink w-min px-8 m-auto my-2">
+        <h1
+          className="clear-right text-3xl font-bold text-center bg-white rounded-xl shadow-md flex-shrink w-min px-8 m-auto my-2"
+          id="selectedTaskTitle"
+        >
           {selectedTask.task}
         </h1>
       </div>
@@ -100,14 +104,14 @@ function SelectedTask() {
           id="selectedTaskName"
           value={selectedTask.task}
           onChange={(e) => updateTaskName(e)}
-        />
+        ></input>
         {/* Button Group */}
         <div className="flex flex-row w-full py-2">
           <button
             className={`${buttonIsActive(
               TaskStatus.Active
             )} border border-gray-600 flex-auto rounded-l duration-200 ease-in-out transition focus:outline-none`}
-            id="selectedTaskActive"
+            id="selectedTaskActiveButton"
             onClick={() => updateTaskStatus(TaskStatus.Active)}
           >
             Active
@@ -116,7 +120,7 @@ function SelectedTask() {
             className={`${buttonIsActive(
               TaskStatus.Complete
             )} border border-gray-600 flex-auto duration-200 ease-in-out transition focus:outline-none`}
-            id="selectedTaskCompleted"
+            id="selectedTaskCompletedButton"
             onClick={() => updateTaskStatus(TaskStatus.Complete)}
           >
             Complete
@@ -125,16 +129,17 @@ function SelectedTask() {
             className={`${buttonIsActive(
               TaskStatus.Dropped
             )} border border-gray-600 flex-auto rounded-r duration-200 ease-in-out transition focus:outline-none`}
-            id="selectedTaskDropped"
+            id="selectedTaskDroppedButton"
             onClick={() => updateTaskStatus(TaskStatus.Dropped)}
           >
             Dropped
           </button>
         </div>
         {/* Note */}
-        <div>
+        <div className="flex flex-row w-full">
+          <div></div>
           <textarea
-            className="w-full border border-gray-600 rounded-md mt-2 resize-y px-1"
+            className="w-full border border-gray-600 rounded-md my-2 resize-y px-1"
             placeholder="Note"
             id="selectedTaskNote"
             value={selectedTask.note}
@@ -143,11 +148,15 @@ function SelectedTask() {
         </div>
         {/* Dates */}
         <div className="py-2">
-          <b>Created:</b> {styleDates(selectedTask.created)}
-          <br />
-          <b>Modified:</b> {styleDates(selectedTask.modified)}
-          <br />
-          <b>Completed:</b> {styleDates(selectedTask.completed)}
+          <div id="selectedTaskCreated">
+            <b>Created:</b> {styleDates(selectedTask.created)}
+          </div>
+          <div id="selectedTaskModified">
+            <b>Modified:</b> {styleDates(selectedTask.modified)}
+          </div>
+          <div id="selectedTaskCompleted">
+            <b>Completed:</b> {styleDates(selectedTask.completed)}
+          </div>
         </div>
       </div>
     </div>
