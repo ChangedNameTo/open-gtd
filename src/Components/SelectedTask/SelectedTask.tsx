@@ -88,23 +88,17 @@ function SelectedTask() {
 
   return (
     <div className="flex flex-col px-2 bg-gray-200 rounded-l-xl shadow-xl py-1 min-h-full transition ease-in border-gray-300 w-1/4">
-      <div className="inline justify-center">
-        {closeSelectedTaskButton()}
-        <h1
-          className="clear-right text-3xl font-bold text-center bg-white rounded-xl shadow-md flex-shrink w-min px-8 m-auto my-2"
-          id="selectedTaskTitle"
-        >
-          {selectedTask.task}
-        </h1>
-      </div>
       <div id="selectedTaskPane" className="divide-y divide-gray-700">
         {/* Task Name */}
-        <input
-          className="w-full mb-2 rounded-md shadow-sm px-1 border border-gray-600 hover:ring-2 hover:ring-gray-600"
-          id="selectedTaskName"
-          value={selectedTask.task}
-          onChange={(e) => updateTaskName(e)}
-        ></input>
+        <div className="inline">
+          {closeSelectedTaskButton()}
+          <input
+            className="w-full mb-2 rounded-md shadow-sm px-1 border border-gray-600 hover:ring-2 hover:ring-gray-600"
+            id="selectedTaskName"
+            value={selectedTask.task}
+            onChange={(e) => updateTaskName(e)}
+          ></input>
+        </div>
         {/* Button Group */}
         <div className="flex flex-row w-full py-2">
           <button
