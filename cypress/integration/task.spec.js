@@ -42,5 +42,11 @@ context("Tasks", () => {
       cy.add_task("   ");
       cy.get("#taskId0").should("not.exist");
     });
+
+    it("Expects tasks to be added after hitting the enter key", () => {
+      cy.contains("Add New Task").click();
+      cy.get("#addTaskInput").type("Cypress test task").type("{enter}");
+      cy.get("#taskList").contains("Cypress test task");
+    });
   });
 });

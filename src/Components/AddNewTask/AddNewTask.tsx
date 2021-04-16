@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState, useRef } from "react";
+import React, { ChangeEvent, useEffect, useState, useRef } from "react";
 
 import { addTask } from "../TaskList/TaskListSlice";
 import { useAppDispatch } from "../../hooks";
@@ -45,8 +45,15 @@ function AddNewTask() {
   };
 
   const createNewTask = () => {
-    dispatch(addTask(taskText));
+    dispatch(addTask(taskText.trim()));
     setTaskText("");
+  };
+
+  const onEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && e.shiftKey === false) {
+      e.preventDefault();
+      createNewTask();
+    }
   };
 
   return (
@@ -68,7 +75,7 @@ function AddNewTask() {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setTaskText(e.target.value)
           }
-          onBlur={() => taskText.trim()}
+          onKeyDown={(e) => onEnterPress(e)}
         />
         <span
           className="flex items-center bg-green-600 rounded rounded-l-none border-0 px-3 hover:bg-green-500 cursor-pointer duration-200 transition ease-in-out"
