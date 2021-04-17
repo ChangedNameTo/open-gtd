@@ -68,7 +68,7 @@ function TaskRow(props: { taskId: string }) {
     >
       <div className="inline px-1">{taskCheckboxIcon()}</div>
       <div
-        className={`${textColor()} inline`}
+        className={`${textColor()} inline break-words`}
         onClick={(e) => setSelectTask(e)}
       >
         {taskText()}
