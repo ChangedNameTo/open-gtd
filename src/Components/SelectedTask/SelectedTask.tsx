@@ -87,7 +87,7 @@ function SelectedTask() {
   };
 
   return (
-    <div className="flex flex-col px-2 bg-gray-200 rounded-l-xl shadow-xl py-1 min-h-full transition ease-in border-gray-300 w-1/4">
+    <div className="flex flex-shrink-0 flex-col px-2 bg-gray-200 rounded-l-xl shadow-xl py-1 min-h-full transition ease-in border-gray-300 w-1/4 z-10">
       <div id="selectedTaskPane" className="divide-y divide-gray-700">
         {/* Task Name */}
         <div className="inline">

@@ -20,7 +20,7 @@ function TaskRowDisplay() {
   };
 
   return (
-    <div className="flex flex-col px-2 flex-grow">
+    <div className="flex flex-col px-2 flex-shrink">
       <div className="header bg-white shadow">
         <div className="max-w-4xl mx-auto py-2 px-1 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold text-gray-900 text-center">
@@ -28,7 +28,7 @@ function TaskRowDisplay() {
           </h1>
         </div>
       </div>
-      <div className="divide-y divide-gray-300" id="taskList">
+      <div className="divide-y divide-gray-300 flex-initial" id="taskList">
         {buildTaskList()}
       </div>
       <br />

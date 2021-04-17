@@ -63,12 +63,12 @@ function TaskRow(props: { taskId: string }) {
   return (
     <div
       id={`taskId${props.taskId}`}
-      className={`min-w-full text-left hover:bg-gray-100 focus:bg-gray-200 rounded my-0.5 px-1 subpixel-antialiased font-mono focus:ring-0 focus:border-transparent focus:outline-none truncate cursor-pointer`}
+      className={`min-w-full text-left hover:bg-gray-100 focus:bg-gray-200 rounded my-0.5 px-1 subpixel-antialiased font-mono focus:ring-0 focus:border-transparent focus:outline-none cursor-pointer`}
       onClick={(e) => setSelectTask(e)}
     >
       <div className="inline px-1">{taskCheckboxIcon()}</div>
       <div
-        className={`${textColor()} inline-flex flex-1`}
+        className={`${textColor()} inline`}
         onClick={(e) => setSelectTask(e)}
       >
         {taskText()}
