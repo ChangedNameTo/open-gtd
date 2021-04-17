@@ -11,6 +11,7 @@ export default interface Task {
   // Anything placed into the note text box
   note: string;
 
+  // One of the three possible statuses that a task can have
   status: TaskStatus;
 
   // Timestamps
