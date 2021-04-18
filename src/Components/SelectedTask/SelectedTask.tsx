@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
+
 import { TaskStatus } from "../Task/TaskInterface";
 import TextareaAutosize from "react-textarea-autosize";
 
@@ -13,6 +14,7 @@ import {
   updateTaskTaskStatus,
   updateTaskTaskNote,
 } from "../TaskList/TaskListSlice";
+import PrioritySelect from "./PrioritySelect";
 /**
  * After clicking on a task in
  * @returns {FunctionComponent}
@@ -137,6 +139,13 @@ function SelectedTask() {
               Dropped
             </button>
           </div>
+        </div>
+        {/* Tags */}
+        <div className="w-full pb-2">{taskSubsectionHeader("Tags")}</div>
+        {/* Priority */}
+        <div className="w-full pb-2">
+          {taskSubsectionHeader("Priority")}
+          {PrioritySelect()}
         </div>
         {/* Note */}
         <div className="w-full">

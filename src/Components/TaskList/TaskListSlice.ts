@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 import TaskList from "./TaskListInterface";
-import { TaskStatus } from "../Task/TaskInterface";
+import { TaskPriority, TaskStatus } from "../Task/TaskInterface";
 
 enableMapSet();
 
@@ -30,6 +30,8 @@ export const taskListSlice = createSlice({
         note: "",
 
         status: TaskStatus.Active,
+
+        priority: TaskPriority.None,
 
         created: Date.now(),
         modified: Date.now(),

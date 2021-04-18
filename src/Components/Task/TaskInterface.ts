@@ -4,6 +4,14 @@ export enum TaskStatus {
   Dropped,
 }
 
+export enum TaskPriority {
+  None = "None",
+  Low = "Low",
+  Medium = "Medium",
+  High = "High",
+  Immediate = "Immediate",
+}
+
 export default interface Task {
   // The actual task text
   task: string;
@@ -13,6 +21,9 @@ export default interface Task {
 
   // One of the three possible statuses that a task can have
   status: TaskStatus;
+
+  // One of the five possible priorities, default None
+  priority: TaskPriority;
 
   // Timestamps
   readonly created: number;
