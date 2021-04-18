@@ -67,6 +67,12 @@ export const taskListSlice = createSlice({
       task.note = action.payload.newNote;
       task.modified = Date.now();
     },
+    updateTaskTaskPriority: (state: TaskList, action: PayloadAction<any>) => {
+      const task = state.taskList.byId[action.payload.taskId];
+
+      task.priority = action.payload.newPriority;
+      task.modified = Date.now();
+    },
   },
 });
 
@@ -76,6 +82,7 @@ export const {
   updateTaskTaskName,
   updateTaskTaskStatus,
   updateTaskTaskNote,
+  updateTaskTaskPriority,
 } = taskListSlice.actions;
 
 export const getTaskIds = (state: RootState) => state.tasks.taskList.allIds;

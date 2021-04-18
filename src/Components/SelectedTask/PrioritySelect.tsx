@@ -1,4 +1,7 @@
+import { ChangeEvent } from "react";
+import { useAppDispatch } from "../../hooks";
 import { TaskPriority } from "../Task/TaskInterface";
+import { updateTaskTaskPriority } from "../TaskList/TaskListSlice";
 
 const priorityOptions = [
   { value: TaskPriority.None, label: TaskPriority.None },
@@ -8,19 +11,33 @@ const priorityOptions = [
   { value: TaskPriority.Immediate, label: TaskPriority.Immediate },
 ];
 
-const buildOptionsList = () => {
-  return priorityOptions.map((value) => {
-    return (
-      <option className="w-full" value={value.value} key={value.value}>
-        {value.label}
-      </option>
-    );
-  });
-};
+function PrioritySelect(selectedTaskId: string) {
+  const dispatch = useAppDispatch();
 
-function PrioritySelect() {
+  const updateTaskPriority = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(
+      updateTaskTaskPriority({
+        newPriority: e.target.value,
+        taskId: selectedTaskId,
+      })
+    );
+  };
+
+  const buildOptionsList = () => {
+    return priorityOptions.map((value) => {
+      return (
+        <option className="w-full" value={value.value} key={value.value}>
+          {value.label}
+        </option>
+      );
+    });
+  };
+
   return (
-    <select className="mt-1 w-full border border-gray-600 rounded-md focus:outline-none">
+    <select
+      className="mt-1 w-full border border-gray-600 rounded-md focus:outline-none"
+      onChange={(e) => updateTaskPriority(e)}
+    >
       {buildOptionsList()}
     </select>
   );
