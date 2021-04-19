@@ -16,7 +16,7 @@ function navbar() {
                 size="2x"
               />
             </div>
-            <div className="hidden md:block">
+            <div className="md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 <button className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-bold">
                   Inbox

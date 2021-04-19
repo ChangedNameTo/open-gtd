@@ -1,7 +1,7 @@
 export enum TaskStatus {
-  Active,
-  Complete,
-  Dropped,
+  Active = "Active",
+  Complete = "Complete",
+  Dropped = "Dropped",
 }
 
 export enum TaskPriority {
