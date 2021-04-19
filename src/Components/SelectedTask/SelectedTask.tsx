@@ -90,7 +90,7 @@ function SelectedTask() {
   };
 
   const taskSubsectionHeader = (subsectionHeader: string) => {
-    return <div className="pt-1 font-bold">{subsectionHeader}</div>;
+    return <div className="pt-1 font-bold text-lg">{subsectionHeader}</div>;
   };
 
   return (
@@ -100,7 +100,7 @@ function SelectedTask() {
         <div className="inline">
           {closeSelectedTaskButton()}
           <TextareaAutosize
-            className="w-full border border-gray-600 rounded-md my-1 px-1 hover:ring-2 hover:ring-gray-600 focus:outline-none h-auto"
+            className="w-full border border-gray-600 rounded-md my-1 px-1 hover:ring-2 hover:ring-gray-600 focus:outline-none h-auto font-medium"
             id="selectedTaskName"
             value={selectedTask.task}
             placeholder="Empty task text"
@@ -164,17 +164,23 @@ function SelectedTask() {
         {/* Dates */}
         <div className="w-full py-2">
           {taskSubsectionHeader("Task Dates")}
-          <div id="selectedTaskCreated">
+          <div>
             <div className="inline font-bold">Created: </div>
-            {styleDates(selectedTask.created)}
+            <div id="selectedTaskCreated" className="inline">
+              {styleDates(selectedTask.created)}
+            </div>
           </div>
-          <div id="selectedTaskModified">
+          <div>
             <div className="inline font-bold">Modified: </div>
-            {styleDates(selectedTask.modified)}
+            <div id="selectedTaskModified" className="inline">
+              {styleDates(selectedTask.modified)}
+            </div>
           </div>
-          <div id="selectedTaskCompleted">
+          <div>
             <div className="inline font-bold">Completed: </div>
-            {styleDates(selectedTask.completed)}
+            <div id="selectedTaskCompleted" className="inline">
+              {styleDates(selectedTask.completed)}
+            </div>
           </div>
         </div>
       </div>

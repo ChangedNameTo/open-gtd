@@ -38,6 +38,7 @@ function PrioritySelect(
     <select
       className="mt-1 w-full border border-gray-600 rounded-md focus:outline-none hover:ring-2 hover:ring-gray-600"
       onChange={(e) => updateTaskPriority(e)}
+      id="selectedTaskPrioritySelect"
       value={currentPriority}
     >
       {buildOptionsList()}
