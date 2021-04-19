@@ -141,11 +141,14 @@ function SelectedTask() {
           </div>
         </div>
         {/* Tags */}
-        <div className="w-full pb-2">{taskSubsectionHeader("Tags")}</div>
+        <div className="w-full pb-2">
+          {taskSubsectionHeader("Tags")}
+          Not Implemented
+        </div>
         {/* Priority */}
         <div className="w-full pb-2">
           {taskSubsectionHeader("Priority")}
-          {PrioritySelect(selectedTaskId)}
+          {PrioritySelect(dispatch, selectedTaskId, selectedTask.priority)}
         </div>
         {/* Note */}
         <div className="w-full">

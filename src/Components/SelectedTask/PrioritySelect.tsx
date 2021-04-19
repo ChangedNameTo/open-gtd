@@ -1,5 +1,4 @@
 import { ChangeEvent } from "react";
-import { useAppDispatch } from "../../hooks";
 import { TaskPriority } from "../Task/TaskInterface";
 import { updateTaskTaskPriority } from "../TaskList/TaskListSlice";
 
@@ -11,9 +10,11 @@ const priorityOptions = [
   { value: TaskPriority.Immediate, label: TaskPriority.Immediate },
 ];
 
-function PrioritySelect(selectedTaskId: string) {
-  const dispatch = useAppDispatch();
-
+function PrioritySelect(
+  dispatch: any,
+  selectedTaskId: string,
+  currentPriority: TaskPriority
+) {
   const updateTaskPriority = (e: ChangeEvent<HTMLSelectElement>) => {
     dispatch(
       updateTaskTaskPriority({
@@ -37,6 +38,7 @@ function PrioritySelect(selectedTaskId: string) {
     <select
       className="mt-1 w-full border border-gray-600 rounded-md focus:outline-none"
       onChange={(e) => updateTaskPriority(e)}
+      value={currentPriority}
     >
       {buildOptionsList()}
     </select>
