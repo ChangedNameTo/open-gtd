@@ -6,6 +6,7 @@ function Folders() {
           <h1 className="text-3xl font-bold text-gray-900 text-center">
             Folders
           </h1>
+          <div>Not Implemented</div>
         </div>
       </div>
     </div>
