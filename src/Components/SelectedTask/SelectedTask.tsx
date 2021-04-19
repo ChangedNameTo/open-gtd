@@ -159,7 +159,7 @@ function SelectedTask() {
           ></textarea>
         </div>
         {/* Dates */}
-        <div className="py-2">
+        <div className="w-full py-2">
           {taskSubsectionHeader("Task Dates")}
           <div id="selectedTaskCreated">
             <div className="inline font-bold">Created: </div>
