@@ -8,7 +8,7 @@ import Folders from "./Folders";
  */
 function taskUI() {
   return (
-    <div className="flex space-x-2 py-2 h-full">
+    <div className="inline-flex flex-grow space-x-2 py-2 h-full w-full">
       {Folders()}
       {TaskRowDisplay()}
       {SelectedTask()}

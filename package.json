@@ -2,6 +2,7 @@
   "name": "open-gtd",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://changednameto.github.io/open-gtd",
   "dependencies": {
     "@craco/craco": "^6.1.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -16,12 +17,15 @@
     "@testing-library/user-event": "^12.8.3",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
+    "@types/react-select": "^4.0.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-folder-tree": "^4.0.8",
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.3",
     "react-scripts": "4.0.3",
+    "react-select": "^4.3.0",
+    "react-textarea-autosize": "^8.3.2",
     "typedoc": "^0.20.35",
     "web-vitals": "^1.1.1"
   },
@@ -30,7 +34,8 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +65,7 @@
     "eslint": "^7.23.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.23.1",
+    "gh-pages": "^3.1.0",
     "postcss": "^7.0.35",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",

@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function navbar() {
   return (
     <nav className="bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h16">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-0.5">
+        <div className="flex items-center justify-between h-12">
           <div className="flex items-center">
             <div className="flex-shrink-0 py-1">
               <FontAwesomeIcon
@@ -16,7 +16,7 @@ function navbar() {
                 size="2x"
               />
             </div>
-            <div className="hidden md:block">
+            <div className="md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 <button className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-bold">
                   Inbox

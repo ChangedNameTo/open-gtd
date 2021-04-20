@@ -1,7 +1,5 @@
-import { ChangeEvent, useEffect, useState, useRef } from "react";
+import React, { ChangeEvent, useEffect, useState, useRef } from "react";
 
-import { FaCheckCircle } from "react-icons/fa";
-import { IconContext } from "react-icons/lib";
 import { addTask } from "../TaskList/TaskListSlice";
 import { useAppDispatch } from "../../hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,16 +17,6 @@ function AddNewTask() {
   const dispatch = useAppDispatch();
 
   const toggleVisible = () => setVisible(!visible);
-
-  const submitIcon = () => {
-    return (
-      <IconContext.Provider value={{ color: "white", size: "20px" }}>
-        <div>
-          <FaCheckCircle />
-        </div>
-      </IconContext.Provider>
-    );
-  };
 
   const addTaskDivClasses = () => {
     return visible
@@ -57,8 +45,15 @@ function AddNewTask() {
   };
 
   const createNewTask = () => {
-    dispatch(addTask(taskText));
+    dispatch(addTask(taskText.trim()));
     setTaskText("");
+  };
+
+  const onEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && e.shiftKey === false) {
+      e.preventDefault();
+      createNewTask();
+    }
   };
 
   return (
@@ -80,13 +75,13 @@ function AddNewTask() {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setTaskText(e.target.value)
           }
+          onKeyDown={(e) => onEnterPress(e)}
         />
-        <span className="flex items-center bg-green-600 rounded rounded-l-none border-0 px-3 hover:bg-green-500">
-          <button
-            className="focus:outline-none"
-            id="submitNewTaskButton"
-            onClick={() => createNewTask()}
-          >
+        <span
+          className="flex items-center bg-green-600 rounded rounded-l-none border-0 px-3 hover:bg-green-500 cursor-pointer duration-200 transition ease-in-out"
+          onClick={() => createNewTask()}
+        >
+          <button className="focus:outline-none" id="submitNewTaskButton">
             <FontAwesomeIcon
               className="text-white py-auto"
               icon={["fas", "check-circle"]}

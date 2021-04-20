@@ -39,9 +39,9 @@ module.exports = {
   },
   variants: {
     extend: {
-      ringWidth: ["active"],
-      ringColor: ["group-focus", "active"],
-      borderColor: ["group-hover"],
+      ringWidth: ["hover", "active", "group-hover"],
+      ringColor: ["hover", "group-focus", "active", "group-hover"],
+      borderColor: ["hover", "group-hover"],
       fontWeight: ["hover"],
     },
   },
