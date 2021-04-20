@@ -83,7 +83,7 @@ function SelectedTask() {
 
   const buttonIsActive = (status: TaskStatus) => {
     if (selectedTask.status === status) {
-      return "text-bold bg-gray-700 text-gray-100 hover:text-gray-700 hover:bg-gray-300";
+      return "text-bold bg-gray-700 text-gray-100";
     } else {
       return "bg-gray-100 text-gray-700 hover:text-gray-700 hover:bg-gray-300";
     }
@@ -100,7 +100,7 @@ function SelectedTask() {
         <div className="inline">
           {closeSelectedTaskButton()}
           <TextareaAutosize
-            className="w-full border border-gray-600 rounded-md my-1 px-1 hover:ring-2 hover:ring-gray-600 focus:outline-none h-auto font-medium"
+            className="w-full border border-gray-600 rounded-md my-1 px-1 hover:ring-2 hover:ring-gray-700 focus:outline-none h-auto font-medium"
             id="selectedTaskName"
             value={selectedTask.task}
             placeholder="Empty task text"
@@ -114,20 +114,20 @@ function SelectedTask() {
             <button
               className={`${buttonIsActive(
                 TaskStatus.Active
-              )} border border-gray-600 flex-auto rounded-l duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-600`}
+              )} border border-gray-600 flex-auto rounded-l duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-700`}
               id="selectedTaskActiveButton"
               onClick={() => updateTaskStatus(TaskStatus.Active)}
             >
-              Active
+              {TaskStatus.Active}
             </button>
             <button
               className={`${buttonIsActive(
                 TaskStatus.Complete
-              )} border border-gray-600 flex-auto duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-600`}
+              )} border border-gray-600 flex-auto duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-700`}
               id="selectedTaskCompletedButton"
               onClick={() => updateTaskStatus(TaskStatus.Complete)}
             >
-              Complete
+              {TaskStatus.Complete}
             </button>
             <button
               className={`${buttonIsActive(
@@ -136,7 +136,7 @@ function SelectedTask() {
               id="selectedTaskDroppedButton"
               onClick={() => updateTaskStatus(TaskStatus.Dropped)}
             >
-              Dropped
+              {TaskStatus.Dropped}
             </button>
           </div>
         </div>
