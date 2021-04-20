@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import { RootState } from "../../store";
@@ -12,7 +12,10 @@ import { TaskStatus } from "./TaskInterface";
  * @returns {FunctionComponent}
  */
 function TaskRow(props: { taskId: string }) {
+  const [taskNoteHidden, setTaskNoteHidden] = useState(true);
+
   const dispatch = useAppDispatch();
+
   const task = useSelector(
     (state: RootState) => state.tasks.taskList.byId[props.taskId]
   );
@@ -60,18 +63,62 @@ function TaskRow(props: { taskId: string }) {
     }
   };
 
+  const noteIcon = () => {
+    if (task.note) {
+      return (
+        <FontAwesomeIcon
+          className="text-gray-300 fa-lg mt-1"
+          icon={["fas", "sticky-note"]}
+          onClick={(e) => updateTaskNoteVisible(e)}
+        />
+      );
+    } else {
+      return (
+        <FontAwesomeIcon
+          className="text-gray-300 fa-lg mt-1"
+          icon={["far", "sticky-note"]}
+          onClick={(e) => updateTaskNoteVisible(e)}
+        />
+      );
+    }
+  };
+
+  const isTaskNoteHidden = () => {
+    return taskNoteHidden ? "hidden" : "";
+  };
+
+  const updateTaskNoteVisible = (e: any) => {
+    const target = e.target;
+    const currentTarget = e.currentTarget;
+
+    if (
+      (target !== currentTarget && !currentTarget.contains(target)) ||
+      !task.note
+    ) {
+      return;
+    }
+    setTaskNoteHidden(!taskNoteHidden);
+  };
+
   return (
     <div
       id={`taskId${props.taskId}`}
-      className={`min-w-full text-left hover:bg-gray-100 focus:bg-gray-200 rounded my-0.5 px-1 subpixel-antialiased font-mono focus:ring-0 focus:border-transparent focus:outline-none cursor-pointer`}
+      className={`min-w-full  hover:bg-gray-100 focus:bg-gray-200 px-1 font-mono focus:ring-0 focus:border-transparent focus:outline-none cursor-pointer`}
       onClick={(e) => setSelectTask(e)}
     >
       <div className="inline px-1">{taskCheckboxIcon()}</div>
       <div
-        className={`${textColor()} inline break-words`}
+        className={`${textColor()} inline break-words select-none`}
         onClick={(e) => setSelectTask(e)}
       >
         {taskText()}
+      </div>
+      <div className={`inline px-1 float-right`}>{noteIcon()}</div>
+      <div
+        className={`${isTaskNoteHidden()} text-gray-400 rounded pt-1`}
+        onClick={(e) => setSelectTask(e)}
+      >
+        {task.note}
       </div>
     </div>
   );
