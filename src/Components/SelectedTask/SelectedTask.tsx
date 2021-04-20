@@ -114,7 +114,7 @@ function SelectedTask() {
             <button
               className={`${buttonIsActive(
                 TaskStatus.Active
-              )} border border-gray-600 flex-auto rounded-l duration-200 ease-in-out transition focus:outline-none`}
+              )} border border-gray-600 flex-auto rounded-l duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-600`}
               id="selectedTaskActiveButton"
               onClick={() => updateTaskStatus(TaskStatus.Active)}
             >
@@ -123,7 +123,7 @@ function SelectedTask() {
             <button
               className={`${buttonIsActive(
                 TaskStatus.Complete
-              )} border border-gray-600 flex-auto duration-200 ease-in-out transition focus:outline-none`}
+              )} border border-gray-600 flex-auto duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-600`}
               id="selectedTaskCompletedButton"
               onClick={() => updateTaskStatus(TaskStatus.Complete)}
             >
@@ -132,7 +132,7 @@ function SelectedTask() {
             <button
               className={`${buttonIsActive(
                 TaskStatus.Dropped
-              )} border border-gray-600 flex-auto rounded-r duration-200 ease-in-out transition focus:outline-none`}
+              )} border border-gray-600 flex-auto rounded-r duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-600`}
               id="selectedTaskDroppedButton"
               onClick={() => updateTaskStatus(TaskStatus.Dropped)}
             >
