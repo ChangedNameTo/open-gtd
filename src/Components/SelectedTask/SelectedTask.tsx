@@ -153,13 +153,13 @@ function SelectedTask() {
         {/* Note */}
         <div className="w-full">
           {taskSubsectionHeader("Task Note")}
-          <textarea
+          <TextareaAutosize
             className="w-full border border-gray-600 rounded-md my-1 resize-y px-1 hover:ring-2 hover:ring-gray-600 focus:outline-none"
             placeholder="Note"
             id="selectedTaskNote"
             value={selectedTask.note}
             onChange={(e) => updateTaskNote(e)}
-          ></textarea>
+          />
         </div>
         {/* Dates */}
         <div className="w-full py-2">

@@ -27,13 +27,18 @@ function PrioritySelect(
   const buildOptionsList = () => {
     return priorityOptions.map((value) => {
       return (
-        <option className="w-full" value={value.value} key={value.value}>
+        <option
+          className="w-full rounded"
+          value={value.value}
+          key={value.value}
+        >
           {value.label}
         </option>
       );
     });
   };
 
+  // TODO: Change this to use divs and a's instead of being a select
   return (
     <select
       className="mt-1 w-full border border-gray-600 rounded-md focus:outline-none hover:ring-2 hover:ring-gray-600"
