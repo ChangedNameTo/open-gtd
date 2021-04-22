@@ -4,17 +4,29 @@ function ButtonGroup(
   options: any[],
   idPrefix: string
 ) {
-  const buttonIsActive = (status: any) => {
-    console.log(status);
-    if (buttonGroupSelectedOption === status) {
-      return "text-bold bg-gray-700 text-gray-100";
+  const buttonIsActive = (option: any) => {
+    if (buttonGroupSelectedOption === option) {
+      return "font-semibold bg-gray-700 text-gray-100";
     } else {
       return "bg-gray-100 text-gray-700 hover:text-gray-700 hover:bg-gray-300";
     }
   };
 
+  const convertOptionText = (option: any) => {
+    if (option === null) {
+      return "Select All";
+    } else if (option === true) {
+      return "True";
+    } else if (option === false) {
+      return "False";
+    } else {
+      return option;
+    }
+  };
+
   const leftButton = () => {
     const buttonText = options[0];
+
     return (
       <button
         className={`${buttonIsActive(
@@ -23,7 +35,7 @@ function ButtonGroup(
         id={`${idPrefix}${buttonText}Button`}
         onClick={() => onClickArg(buttonText)}
       >
-        {buttonText}
+        {convertOptionText(buttonText)}
       </button>
     );
   };
@@ -38,7 +50,7 @@ function ButtonGroup(
           id={`${idPrefix}${buttonText}Button`}
           onClick={() => onClickArg(buttonText)}
         >
-          {buttonText}
+          {convertOptionText(buttonText)}
         </button>
       );
     });
@@ -54,7 +66,7 @@ function ButtonGroup(
         id={`${idPrefix}${buttonText}Button`}
         onClick={() => onClickArg(buttonText)}
       >
-        {buttonText}
+        {convertOptionText(buttonText)}
       </button>
     );
   };

@@ -2,8 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
-import { TaskStatus } from "../Task/TaskInterface";
-import { getFilters, setCompletionFilter } from "./TaskFilterSlice";
+import { TaskPriority, TaskStatus } from "../Task/TaskInterface";
+import {
+  getFilters,
+  setCompletionFilter,
+  setPriorityFilter,
+  setHasNoteFilter,
+  clearAllFilters,
+} from "./TaskFilterSlice";
 
 function TaskListFilters() {
   const isInitialMount = useRef(true);
@@ -33,6 +39,18 @@ function TaskListFilters() {
 
   const updateCompletionFilter = (status: TaskStatus) => {
     dispatch(setCompletionFilter(status));
+  };
+
+  const updatePriorityFilter = (status: TaskPriority) => {
+    dispatch(setPriorityFilter(status));
+  };
+
+  const updateHasNoteFilter = (status: boolean) => {
+    dispatch(setHasNoteFilter(status));
+  };
+
+  const updateClearAllFilters = () => {
+    dispatch(clearAllFilters());
   };
 
   const buttonIsActive = () => {
@@ -68,18 +86,58 @@ function TaskListFilters() {
           <div className="space-y-2">
             <div className="block">
               <div className="font-semibold">Priority Filter</div>
+              {ButtonGroup(
+                currentFilters.priority,
+                updatePriorityFilter,
+                [
+                  null,
+                  TaskPriority.None,
+                  TaskPriority.Low,
+                  TaskPriority.Medium,
+                  TaskPriority.High,
+                  TaskPriority.Immediate,
+                ],
+                "completionFilter"
+              )}
+            </div>
+            <div className="block">
+              <div className="font-semibold">Status Filter</div>
               <div>
                 {ButtonGroup(
                   currentFilters.completion,
                   updateCompletionFilter,
-                  [TaskStatus.Active, TaskStatus.Complete, TaskStatus.Dropped],
+                  [
+                    null,
+                    TaskStatus.Active,
+                    TaskStatus.Complete,
+                    TaskStatus.Dropped,
+                  ],
                   "completionFilter"
                 )}
               </div>
             </div>
-            <div className="block font-semibold">Status Filter</div>
-            <div className="block font-semibold">Tag Filter</div>
-            <div className="block font-semibold">Note Filter</div>
+            <div className="block">
+              <div className="font-semibold">Tag Filter</div>
+            </div>
+            <div className="block">
+              <div className="font-semibold">Note Filter</div>
+              <div>
+                {ButtonGroup(
+                  currentFilters.hasNote,
+                  updateHasNoteFilter,
+                  [null, true, false],
+                  "completionFilter"
+                )}
+              </div>
+            </div>
+            <div className="block">
+              <button
+                className="font-bold bg-red-600 w-full rounded text-white"
+                onClick={() => updateClearAllFilters()}
+              >
+                Clear All Filters
+              </button>
+            </div>
           </div>
         </div>
       </div>

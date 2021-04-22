@@ -16,15 +16,41 @@ function TaskRowDisplay() {
 
   const getTaskById = (taskId: string) => taskList.byId[taskId];
 
+  const hasNoteFilter = (taskId: string) => {
+    if (taskListFilters.hasNote) {
+      return getTaskById(taskId).note !== "";
+    } else if (taskListFilters.hasNote === false) {
+      return getTaskById(taskId).note === "";
+    } else {
+      return true;
+    }
+  };
+
+  const priorityFilter = (taskId: string) => {
+    if (taskListFilters.priority) {
+      return taskListFilters.priority === getTaskById(taskId).priority;
+    } else {
+      return true;
+    }
+  };
+
   const completionFilter = (taskId: string) => {
-    return taskListFilters.completion === getTaskById(taskId).status;
+    if (taskListFilters.completion) {
+      return taskListFilters.completion === getTaskById(taskId).status;
+    } else {
+      return true;
+    }
   };
 
   const buildTaskList = () => {
     if (taskList.allIds) {
-      return taskList.allIds.filter(completionFilter).map((taskId, index) => {
-        return <TaskRow taskId={taskId} key={index} />;
-      });
+      return taskList.allIds
+        .filter(completionFilter)
+        .filter(priorityFilter)
+        .filter(hasNoteFilter)
+        .map((taskId, index) => {
+          return <TaskRow taskId={taskId} key={index} />;
+        });
     }
   };
 
