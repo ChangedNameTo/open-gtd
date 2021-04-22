@@ -15,6 +15,7 @@ import {
   updateTaskTaskNote,
 } from "../TaskList/TaskListSlice";
 import PrioritySelect from "./PrioritySelect";
+import ButtonGroup from "../ButtonGroup/ButtonGroup";
 /**
  * After clicking on a task in
  * @returns {FunctionComponent}
@@ -81,14 +82,6 @@ function SelectedTask() {
     }
   };
 
-  const buttonIsActive = (status: TaskStatus) => {
-    if (selectedTask.status === status) {
-      return "text-bold bg-gray-700 text-gray-100";
-    } else {
-      return "bg-gray-100 text-gray-700 hover:text-gray-700 hover:bg-gray-300";
-    }
-  };
-
   const taskSubsectionHeader = (subsectionHeader: string) => {
     return <div className="pt-1 font-bold text-lg">{subsectionHeader}</div>;
   };
@@ -110,35 +103,12 @@ function SelectedTask() {
         {/* Button Group */}
         <div className="w-full pb-2">
           {taskSubsectionHeader("Task Status")}
-          <div className="flex flex-row">
-            <button
-              className={`${buttonIsActive(
-                TaskStatus.Active
-              )} border border-gray-600 flex-auto rounded-l duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-700`}
-              id="selectedTaskActiveButton"
-              onClick={() => updateTaskStatus(TaskStatus.Active)}
-            >
-              {TaskStatus.Active}
-            </button>
-            <button
-              className={`${buttonIsActive(
-                TaskStatus.Complete
-              )} border border-gray-600 flex-auto duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-700`}
-              id="selectedTaskCompletedButton"
-              onClick={() => updateTaskStatus(TaskStatus.Complete)}
-            >
-              {TaskStatus.Complete}
-            </button>
-            <button
-              className={`${buttonIsActive(
-                TaskStatus.Dropped
-              )} border border-gray-600 flex-auto rounded-r duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-600`}
-              id="selectedTaskDroppedButton"
-              onClick={() => updateTaskStatus(TaskStatus.Dropped)}
-            >
-              {TaskStatus.Dropped}
-            </button>
-          </div>
+          {ButtonGroup(
+            selectedTask.status,
+            updateTaskStatus,
+            [TaskStatus.Active, TaskStatus.Complete, TaskStatus.Dropped],
+            "selectedTask"
+          )}
         </div>
         {/* Tags */}
         <div className="w-full pb-2">

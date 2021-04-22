@@ -19,9 +19,7 @@ function AddNewTask() {
   const toggleVisible = () => setVisible(!visible);
 
   const addTaskDivClasses = () => {
-    return visible
-      ? "animate-fade-in-down flex flex-row focus-within:ring-green-500 focus-within:ring-2 rounded"
-      : "animate-fade-out-up flex flex-row focus-within:ring-green-500 focus-within:ring-2 rounded";
+    return visible ? "animate-fade-in-down" : "animate-fade-out-up";
   };
 
   useEffect(() => {
@@ -31,11 +29,11 @@ function AddNewTask() {
       if (!visible) {
         setTimeout(() => {
           setHidden("hidden");
-        }, 500);
+        }, 250);
       } else {
         setTimeout(() => {
           setHidden("");
-        }, 500);
+        }, 250);
       }
     }
   }, [visible]);
@@ -65,7 +63,9 @@ function AddNewTask() {
       >
         Add New Task
       </button>
-      <div className={`${addTaskDivClasses()} ${isHidden()}`}>
+      <div
+        className={`${addTaskDivClasses()} ${isHidden()} flex flex-row focus-within:ring-green-500 focus-within:ring-2 rounded`}
+      >
         <input
           type="text"
           className="rounded-md rounded-r-none w-full border-green-100 focus:ring-0 focus:border-transparent"

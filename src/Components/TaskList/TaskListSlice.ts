@@ -85,7 +85,7 @@ export const {
   updateTaskTaskPriority,
 } = taskListSlice.actions;
 
-export const getTaskIds = (state: RootState) => state.tasks.taskList.allIds;
+export const getTasks = (state: RootState) => state.tasks.taskList;
 export const getSelectedTaskId = (state: RootState) => state.tasks.selectedTask;
 export const getSelectedTask = (state: RootState) =>
   state.tasks.taskList.byId[state.tasks.selectedTask];

@@ -1,19 +1,28 @@
 import { useSelector } from "react-redux";
 
 import AddNewTask from "../AddNewTask/AddNewTask";
-import { getTaskIds } from "./TaskListSlice";
+import { getTasks } from "./TaskListSlice";
 import TaskRow from "../Task/Task";
+import TaskListFilters from "../TaskListFilters/TaskListFilters";
+import { getFilters } from "../TaskListFilters/TaskFilterSlice";
 
 /**
  * Creates the Task Rows for the main task UI.
  * @returns {FunctionComponent}
  */
 function TaskRowDisplay() {
-  const taskList = useSelector(getTaskIds);
+  const taskList = useSelector(getTasks);
+  const taskListFilters = useSelector(getFilters);
+
+  const getTaskById = (taskId: string) => taskList.byId[taskId];
+
+  const completionFilter = (taskId: string) => {
+    return taskListFilters.completion === getTaskById(taskId).status;
+  };
 
   const buildTaskList = () => {
-    if (taskList) {
-      return taskList.map((taskId, index) => {
+    if (taskList.allIds) {
+      return taskList.allIds.filter(completionFilter).map((taskId, index) => {
         return <TaskRow taskId={taskId} key={index} />;
       });
     }
@@ -33,6 +42,7 @@ function TaskRowDisplay() {
       </div>
       <br />
       {AddNewTask()}
+      {TaskListFilters()}
     </div>
   );
 }
