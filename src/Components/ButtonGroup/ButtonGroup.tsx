@@ -34,6 +34,7 @@ function ButtonGroup(
         )} border border-gray-600 flex-auto rounded-l duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-700`}
         id={`${idPrefix}${buttonText}Button`}
         onClick={() => onClickArg(buttonText)}
+        key={buttonText}
       >
         {convertOptionText(buttonText)}
       </button>
@@ -49,6 +50,7 @@ function ButtonGroup(
           )} border border-gray-600 flex-auto duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-700`}
           id={`${idPrefix}${buttonText}Button`}
           onClick={() => onClickArg(buttonText)}
+          key={buttonText}
         >
           {convertOptionText(buttonText)}
         </button>
@@ -65,6 +67,7 @@ function ButtonGroup(
         )} border border-gray-600 flex-auto rounded-r duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-600`}
         id={`${idPrefix}${buttonText}Button`}
         onClick={() => onClickArg(buttonText)}
+        key={buttonText}
       >
         {convertOptionText(buttonText)}
       </button>
