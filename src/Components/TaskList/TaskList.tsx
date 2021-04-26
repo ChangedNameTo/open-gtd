@@ -63,9 +63,12 @@ function TaskRowDisplay() {
           </h1>
         </div>
       </div>
-      <div className="divide-y divide-gray-300 flex-initial" id="taskList">
-        {buildTaskList()}
-      </div>
+      <table
+        className="table-auto divide-y divide-gray-300 flex-initial"
+        id="taskList"
+      >
+        <tbody>{buildTaskList()}</tbody>
+      </table>
       <br />
       {AddNewTask()}
       {TaskListFilters()}

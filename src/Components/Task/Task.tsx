@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import { RootState } from "../../store";
@@ -64,10 +64,12 @@ function TaskRow(props: { taskId: string }) {
   };
 
   const noteIcon = () => {
+    const classes = "text-gray-300 fa-lg mt-1 float-right";
+
     if (task.note) {
       return (
         <FontAwesomeIcon
-          className="text-gray-300 fa-lg mt-1"
+          className={classes}
           icon={["fas", "sticky-note"]}
           onClick={(e) => updateTaskNoteVisible(e)}
         />
@@ -75,7 +77,7 @@ function TaskRow(props: { taskId: string }) {
     } else {
       return (
         <FontAwesomeIcon
-          className="text-gray-300 fa-lg mt-1"
+          className={classes}
           icon={["far", "sticky-note"]}
           onClick={(e) => updateTaskNoteVisible(e)}
         />
@@ -100,27 +102,66 @@ function TaskRow(props: { taskId: string }) {
     setTaskNoteHidden(!taskNoteHidden);
   };
 
+  const priorityIcon = () => {
+    return (
+      <div
+        className="inline rounded-xl border border-gray-500 px-2 py-0.5 text-gray-500 float-center"
+        onClick={(e) => setSelectTask(e)}
+      >
+        {task.priority}
+      </div>
+    );
+  };
+
+  const isBottomBorderHidden = () => {
+    return taskNoteHidden ? "border-b" : "";
+  };
+
+  const tableRowStyles =
+    "min-w-full  hover:bg-gray-100 focus:bg-gray-200 px-1 font-mono focus:ring-0 focus:border-transparent focus:outline-none cursor-pointer";
+
   return (
-    <div
-      id={`taskId${props.taskId}`}
-      className={`min-w-full  hover:bg-gray-100 focus:bg-gray-200 px-1 font-mono focus:ring-0 focus:border-transparent focus:outline-none cursor-pointer`}
-      onClick={(e) => setSelectTask(e)}
-    >
-      <div className="inline px-1">{taskCheckboxIcon()}</div>
-      <div
-        className={`${textColor()} inline break-words select-none`}
+    <Fragment>
+      <tr
+        id={`taskId${props.taskId}`}
+        className={`${tableRowStyles} ${isBottomBorderHidden()}`}
         onClick={(e) => setSelectTask(e)}
       >
-        {taskText()}
-      </div>
-      <div className={`inline px-1 float-right`}>{noteIcon()}</div>
-      <div
-        className={`${isTaskNoteHidden()} text-gray-400 rounded pt-1`}
+        <td
+          className="px-1 whitespace-nowrap"
+          onClick={(e) => setSelectTask(e)}
+        >
+          {taskCheckboxIcon()}
+        </td>
+        <td
+          className={`${textColor()} break-words select-none`}
+          onClick={(e) => setSelectTask(e)}
+        >
+          {taskText()}
+        </td>
+        <td
+          className="px-1 whitespace-nowrap"
+          onClick={(e) => setSelectTask(e)}
+        >
+          {priorityIcon()}
+        </td>
+        <td className={`px-1`} onClick={(e) => setSelectTask(e)}>
+          {noteIcon()}
+        </td>
+      </tr>
+      <tr
+        className={`${isTaskNoteHidden()} min-w-full text-gray-400 rounded pt-1 border-b`}
         onClick={(e) => setSelectTask(e)}
       >
-        {task.note}
-      </div>
-    </div>
+        <td
+          className={`${tableRowStyles}`}
+          colSpan={4}
+          onClick={(e) => setSelectTask(e)}
+        >
+          {task.note}
+        </td>
+      </tr>
+    </Fragment>
   );
 }
 

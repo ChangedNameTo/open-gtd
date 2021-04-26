@@ -73,6 +73,10 @@ export const taskListSlice = createSlice({
       task.priority = action.payload.newPriority;
       task.modified = Date.now();
     },
+    deleteTask: (state: TaskList, action: PayloadAction<any>) => {
+      delete state.taskList.byId[action.payload.taskId];
+      delete state.taskList.allIds[action.payload.taskId];
+    },
   },
 });
 
