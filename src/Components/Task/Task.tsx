@@ -140,7 +140,7 @@ function TaskRow(props: { taskId: string }) {
           {taskText()}
         </td>
         <td
-          className="px-1 whitespace-nowrap"
+          className="px-1 whitespace-nowrap pt-1"
           onClick={(e) => setSelectTask(e)}
         >
           {priorityIcon()}
