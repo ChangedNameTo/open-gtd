@@ -120,6 +120,14 @@ function TaskRow(props: { taskId: string }) {
   const tableRowStyles =
     "min-w-full  hover:bg-gray-100 focus:bg-gray-200 px-1 font-mono focus:ring-0 focus:border-transparent focus:outline-none cursor-pointer";
 
+  const formatTaskDates = (date: number | null) => {
+    if (date) {
+      return new Date(date).toLocaleDateString("en-us");
+    } else {
+      return "-";
+    }
+  };
+
   return (
     <Fragment>
       <tr
@@ -145,6 +153,12 @@ function TaskRow(props: { taskId: string }) {
         >
           {priorityIcon()}
         </td>
+        <td
+          className="px-1 whitespace-nowrap pt-1 text-gray-400"
+          onClick={(e) => setSelectTask(e)}
+        >
+          {formatTaskDates(task.dueDate)}
+        </td>
         <td className={`px-1`} onClick={(e) => setSelectTask(e)}>
           {noteIcon()}
         </td>
@@ -155,7 +169,7 @@ function TaskRow(props: { taskId: string }) {
       >
         <td
           className={`${tableRowStyles}`}
-          colSpan={4}
+          colSpan={5}
           onClick={(e) => setSelectTask(e)}
         >
           {task.note}

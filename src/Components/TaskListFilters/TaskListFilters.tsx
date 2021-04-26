@@ -118,6 +118,7 @@ function TaskListFilters() {
             </div>
             <div className="block">
               <div className="font-semibold">Tag Filter</div>
+              Not Implemented
             </div>
             <div className="block">
               <div className="font-semibold">Note Filter</div>

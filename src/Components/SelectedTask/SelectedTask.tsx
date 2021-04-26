@@ -3,6 +3,9 @@ import { ChangeEvent } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import { TaskStatus } from "../Task/TaskInterface";
 import TextareaAutosize from "react-textarea-autosize";
 
@@ -13,6 +16,8 @@ import {
   updateTaskTaskName,
   updateTaskTaskStatus,
   updateTaskTaskNote,
+  updateTaskTaskDeferDate,
+  updateTaskTaskDueDate,
 } from "../TaskList/TaskListSlice";
 import PrioritySelect from "./PrioritySelect";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
@@ -43,6 +48,20 @@ function SelectedTask() {
   const updateTaskNote = (e: ChangeEvent<HTMLTextAreaElement>) => {
     dispatch(
       updateTaskTaskNote({ newNote: e.target.value, taskId: selectedTaskId })
+    );
+  };
+
+  const updateTaskDeferDate = (e: Date) => {
+    const newDate = e ? e.getTime() : null;
+    dispatch(
+      updateTaskTaskDeferDate({ newDate: newDate, taskId: selectedTaskId })
+    );
+  };
+
+  const updateTaskDueDate = (e: Date) => {
+    const newDate = e ? e.getTime() : null;
+    dispatch(
+      updateTaskTaskDueDate({ newDate: newDate, taskId: selectedTaskId })
     );
   };
 
@@ -86,6 +105,26 @@ function SelectedTask() {
     return <div className="pt-1 font-bold text-lg">{subsectionHeader}</div>;
   };
 
+  const datepicker = (
+    date: number | null,
+    dateChangeFunction: Function,
+    placeholderText: string
+  ) => {
+    const chosenDate = date ? new Date(date) : null;
+    return (
+      <DatePicker
+        selected={chosenDate}
+        onChange={(date) => dateChangeFunction(date)}
+        isClearable
+        placeholderText={placeholderText}
+        dateFormat="MM/dd/yyyy"
+        className="border rounded w-full"
+        todayButton="Today"
+        openToDate={new Date(Date.now())}
+      />
+    );
+  };
+
   return (
     <div className="flex flex-shrink-0 flex-col px-2 bg-gray-200 rounded-l-xl shadow-xl py-1 min-h-full transition ease-in border-gray-300 w-1/4 z-10">
       <div id="selectedTaskPane" className="divide-y divide-gray-700">
@@ -119,6 +158,20 @@ function SelectedTask() {
         <div className="w-full pb-2">
           {taskSubsectionHeader("Priority")}
           {PrioritySelect(dispatch, selectedTaskId, selectedTask.priority)}
+        </div>
+        {/* Defer/Due Dates */}
+        <div className="w-full">
+          {taskSubsectionHeader("Defer / Due Dates")}
+          <div className="w-full">
+            {datepicker(
+              selectedTask.deferDate,
+              updateTaskDeferDate,
+              "Defer Date"
+            )}
+          </div>
+          <div className="w-full">
+            {datepicker(selectedTask.dueDate, updateTaskDueDate, "Due Date")}
+          </div>
         </div>
         {/* Note */}
         <div className="w-full">
