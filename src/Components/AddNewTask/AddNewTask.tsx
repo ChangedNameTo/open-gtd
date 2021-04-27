@@ -57,7 +57,7 @@ function AddNewTask() {
   return (
     <div className="space-y-2">
       <button
-        className="w-full items-center px-4 bg-green-500 rounded-md shadow-m text-m font-medium border-green-600 border-2 hover:bg-green-600 text-white bold active:ring-green-500 focus:outline-none"
+        className="w-full items-center px-4 bg-green-100 rounded-md shadow-m text-m font-medium border-green-600 border-2 hover:bg-green-600 text-green-600 hover:text-white bold focus:outline-none"
         id="addTaskButton"
         onClick={() => toggleVisible()}
       >

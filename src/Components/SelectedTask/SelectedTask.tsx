@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../hooks";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { TaskStatus } from "../Task/TaskInterface";
+import Task, { TaskStatus } from "../Task/TaskInterface";
 import TextareaAutosize from "react-textarea-autosize";
 
 import {
@@ -27,6 +27,7 @@ import ButtonGroup from "../ButtonGroup/ButtonGroup";
  */
 function SelectedTask() {
   const selectedTaskId = useSelector(getSelectedTaskId);
+  const selectedTask: Task | null = useSelector(getSelectedTask);
   const dispatch = useAppDispatch();
 
   const updateTaskName = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -36,7 +37,7 @@ function SelectedTask() {
   };
 
   const closeSelectedTask = () => {
-    dispatch(selectTask("-1"));
+    dispatch(selectTask(null));
   };
 
   const updateTaskStatus = (status: TaskStatus) => {
@@ -65,10 +66,12 @@ function SelectedTask() {
     );
   };
 
-  const selectedTask = useSelector(getSelectedTask);
-
   // Early returns here to avoid having the selected task stay open at all times
-  if (selectedTaskId === "-1") {
+  if (
+    selectedTask === undefined ||
+    selectedTask === null ||
+    selectedTaskId === null
+  ) {
     return;
   }
 

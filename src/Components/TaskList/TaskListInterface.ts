@@ -6,5 +6,5 @@ import NormalizedObjects from "../NormalizedObjects/NormalizedObjects";
 
 export default interface TaskList {
   taskList: NormalizedObjects<Task>;
-  selectedTask: string;
+  selectedTask: string | null;
 }

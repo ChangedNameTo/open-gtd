@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { TaskPriority, TaskStatus } from "../Task/TaskInterface";
-import TaskFilters from "../TaskListFilters/TaskFiltersInterface";
+import TaskFilter from "./TaskFiltersInterface";
 
-const initialState: TaskFilters = {
+const initialState: TaskFilter = {
   completion: null,
   priority: null,
   hasNote: null,
@@ -14,21 +14,21 @@ export const taskFilterSlice = createSlice({
   initialState,
   reducers: {
     setCompletionFilter: (
-      state: TaskFilters,
+      state: TaskFilter,
       action: PayloadAction<TaskStatus>
     ) => {
       state.completion = action.payload;
     },
     setPriorityFilter: (
-      state: TaskFilters,
+      state: TaskFilter,
       action: PayloadAction<TaskPriority>
     ) => {
       state.priority = action.payload;
     },
-    setHasNoteFilter: (state: TaskFilters, action: PayloadAction<boolean>) => {
+    setHasNoteFilter: (state: TaskFilter, action: PayloadAction<boolean>) => {
       state.hasNote = action.payload;
     },
-    clearAllFilters: (state: TaskFilters) => {
+    clearAllFilters: (state: TaskFilter) => {
       state.completion = null;
       state.priority = null;
       state.hasNote = null;

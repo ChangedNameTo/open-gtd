@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import AddNewTask from "../AddNewTask/AddNewTask";
 import { getTasks } from "./TaskListSlice";
 import TaskRow from "../Task/Task";
-import TaskListFilters from "../TaskListFilters/TaskListFilters";
-import { getFilters } from "../TaskListFilters/TaskFilterSlice";
+import TaskListFilters from "../TaskListFilter/TaskListFilters";
+import { getFilters } from "../TaskListFilter/TaskFilterSlice";
 
 /**
  * Creates the Task Rows for the main task UI.

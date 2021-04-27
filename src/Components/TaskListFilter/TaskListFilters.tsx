@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import { TaskPriority, TaskStatus } from "../Task/TaskInterface";
+import { addFilterPreset } from "../TaskFilterPreset/TaskFilterPresetSlice";
 import {
   getFilters,
   setCompletionFilter,
@@ -14,8 +15,8 @@ import {
 function TaskListFilters() {
   const isInitialMount = useRef(true);
 
-  const [visible, setVisible] = useState(false);
-  const [hidden, setHidden] = useState("hidden");
+  const [visible, setVisible] = useState(true);
+  const [hidden, setHidden] = useState("");
 
   const dispatch = useAppDispatch();
 
@@ -53,11 +54,15 @@ function TaskListFilters() {
     dispatch(clearAllFilters());
   };
 
+  const saveNewTaskFilterPreset = () => {
+    dispatch(addFilterPreset(currentFilters));
+  };
+
   const buttonIsActive = () => {
     if (visible) {
-      return "text-bold bg-gray-700 text-gray-100";
+      return "text-bold bg-gray-600 text-gray-100";
     } else {
-      return "bg-gray-100 text-gray-700 hover:text-gray-700 hover:bg-gray-300";
+      return "bg-gray-100 text-gray-600 hover:text-gray-600 hover:bg-gray-300";
     }
   };
 
@@ -74,7 +79,7 @@ function TaskListFilters() {
   return (
     <div className="py-2">
       <button
-        className={`${buttonIsActive()} w-full items-center px-4 rounded-md shadow-m font-medium border-2 border-gray-600`}
+        className={`${buttonIsActive()} w-full items-center px-4 rounded-md shadow-m font-medium border-2 border-gray-600 focus:outline-none`}
         id="taskFilterButton"
         onClick={() => toggleVisible()}
       >
@@ -131,12 +136,18 @@ function TaskListFilters() {
                 )}
               </div>
             </div>
-            <div className="block">
+            <div className="flex flex-row space-x-2">
               <button
-                className="font-bold bg-red-600 w-full rounded text-white"
+                className="font-bold w-full border-2 border-red-600 bg-red-100 rounded text-red-600 hover:bg-red-600 hover:text-white"
                 onClick={() => updateClearAllFilters()}
               >
                 Clear All Filters
+              </button>
+              <button
+                className="font-bold w-full border-2 border-green-600 bg-green-100 rounded text-green-600 hover:bg-green-600 hover:text-white"
+                onClick={() => saveNewTaskFilterPreset()}
+              >
+                Save as Task Filter Preset
               </button>
             </div>
           </div>

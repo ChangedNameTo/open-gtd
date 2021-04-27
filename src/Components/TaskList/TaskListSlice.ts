@@ -42,7 +42,7 @@ export const taskListSlice = createSlice({
       };
       state.taskList.allIds.push(newTaskId);
     },
-    selectTask: (state: TaskList, action: PayloadAction<string>) => {
+    selectTask: (state: TaskList, action: PayloadAction<string | null>) => {
       state.selectedTask = action.payload;
     },
     updateTaskTaskName: (state: TaskList, action: PayloadAction<any>) => {
@@ -108,7 +108,13 @@ export const {
 
 export const getTasks = (state: RootState) => state.tasks.taskList;
 export const getSelectedTaskId = (state: RootState) => state.tasks.selectedTask;
-export const getSelectedTask = (state: RootState) =>
-  state.tasks.taskList.byId[state.tasks.selectedTask];
+export const getSelectedTask = (state: RootState) => {
+  const selected = state.tasks.selectedTask
+  if(selected !== null) {
+    return state.tasks.taskList.byId[selected];
+  } else {
+    return null
+  }
+}
 
 export default taskListSlice.reducer;
