@@ -19,9 +19,7 @@ function AddNewTask() {
   const toggleVisible = () => setVisible(!visible);
 
   const addTaskDivClasses = () => {
-    return visible
-      ? "animate-fade-in-down flex flex-row focus-within:ring-green-500 focus-within:ring-2 rounded"
-      : "animate-fade-out-up flex flex-row focus-within:ring-green-500 focus-within:ring-2 rounded";
+    return visible ? "animate-fade-in-down" : "animate-fade-out-up";
   };
 
   useEffect(() => {
@@ -31,11 +29,11 @@ function AddNewTask() {
       if (!visible) {
         setTimeout(() => {
           setHidden("hidden");
-        }, 500);
+        }, 250);
       } else {
         setTimeout(() => {
           setHidden("");
-        }, 500);
+        }, 250);
       }
     }
   }, [visible]);
@@ -59,13 +57,15 @@ function AddNewTask() {
   return (
     <div className="space-y-2">
       <button
-        className="w-full items-center px-4 bg-green-500 rounded-md shadow-m text-m font-medium border-green-600 border-2 hover:bg-green-600 text-white bold active:ring-green-500 focus:outline-none"
+        className="w-full items-center px-4 bg-green-100 rounded-md shadow-m text-m font-medium border-green-600 border-2 hover:bg-green-600 text-green-600 hover:text-white bold focus:outline-none"
         id="addTaskButton"
         onClick={() => toggleVisible()}
       >
         Add New Task
       </button>
-      <div className={`${addTaskDivClasses()} ${isHidden()}`}>
+      <div
+        className={`${addTaskDivClasses()} ${isHidden()} flex flex-row focus-within:ring-green-500 focus-within:ring-2 rounded`}
+      >
         <input
           type="text"
           className="rounded-md rounded-r-none w-full border-green-100 focus:ring-0 focus:border-transparent"

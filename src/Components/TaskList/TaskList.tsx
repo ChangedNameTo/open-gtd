@@ -1,21 +1,56 @@
 import { useSelector } from "react-redux";
 
 import AddNewTask from "../AddNewTask/AddNewTask";
-import { getTaskIds } from "./TaskListSlice";
+import { getTasks } from "./TaskListSlice";
 import TaskRow from "../Task/Task";
+import TaskListFilters from "../TaskListFilter/TaskListFilters";
+import { getFilters } from "../TaskListFilter/TaskFilterSlice";
 
 /**
  * Creates the Task Rows for the main task UI.
  * @returns {FunctionComponent}
  */
 function TaskRowDisplay() {
-  const taskList = useSelector(getTaskIds);
+  const taskList = useSelector(getTasks);
+  const taskListFilters = useSelector(getFilters);
+
+  const getTaskById = (taskId: string) => taskList.byId[taskId];
+
+  const hasNoteFilter = (taskId: string) => {
+    if (taskListFilters.hasNote) {
+      return getTaskById(taskId).note !== "";
+    } else if (taskListFilters.hasNote === false) {
+      return getTaskById(taskId).note === "";
+    } else {
+      return true;
+    }
+  };
+
+  const priorityFilter = (taskId: string) => {
+    if (taskListFilters.priority) {
+      return taskListFilters.priority === getTaskById(taskId).priority;
+    } else {
+      return true;
+    }
+  };
+
+  const completionFilter = (taskId: string) => {
+    if (taskListFilters.completion) {
+      return taskListFilters.completion === getTaskById(taskId).status;
+    } else {
+      return true;
+    }
+  };
 
   const buildTaskList = () => {
-    if (taskList) {
-      return taskList.map((taskId, index) => {
-        return <TaskRow taskId={taskId} key={index} />;
-      });
+    if (taskList.allIds) {
+      return taskList.allIds
+        .filter(completionFilter)
+        .filter(priorityFilter)
+        .filter(hasNoteFilter)
+        .map((taskId, index) => {
+          return <TaskRow taskId={taskId} key={index} />;
+        });
     }
   };
 
@@ -28,11 +63,15 @@ function TaskRowDisplay() {
           </h1>
         </div>
       </div>
-      <div className="divide-y divide-gray-300 flex-initial" id="taskList">
-        {buildTaskList()}
-      </div>
+      <table
+        className="table-auto divide-y divide-gray-300 flex-initial"
+        id="taskList"
+      >
+        <tbody>{buildTaskList()}</tbody>
+      </table>
       <br />
       {AddNewTask()}
+      {TaskListFilters()}
     </div>
   );
 }

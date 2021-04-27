@@ -6,10 +6,10 @@ export enum TaskStatus {
 
 export enum TaskPriority {
   None = "None",
-  Low = "Low",
-  Medium = "Medium",
-  High = "High",
-  Immediate = "Immediate",
+  Low = "Low ✅",
+  Medium = "Medium ⚠️",
+  High = "High 🛑",
+  Immediate = "Immediate ⛔️",
 }
 
 export default interface Task {
@@ -24,6 +24,9 @@ export default interface Task {
 
   // One of the five possible priorities, default None
   priority: TaskPriority;
+
+  dueDate: number | null;
+  deferDate: number | null;
 
   // Timestamps
   readonly created: number;

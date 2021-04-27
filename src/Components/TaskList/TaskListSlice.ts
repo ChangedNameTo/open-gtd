@@ -33,13 +33,16 @@ export const taskListSlice = createSlice({
 
         priority: TaskPriority.None,
 
+        dueDate:-1,
+        deferDate:-1,
+
         created: Date.now(),
         modified: Date.now(),
         completed: -1,
       };
       state.taskList.allIds.push(newTaskId);
     },
-    selectTask: (state: TaskList, action: PayloadAction<string>) => {
+    selectTask: (state: TaskList, action: PayloadAction<string | null>) => {
       state.selectedTask = action.payload;
     },
     updateTaskTaskName: (state: TaskList, action: PayloadAction<any>) => {
@@ -73,6 +76,22 @@ export const taskListSlice = createSlice({
       task.priority = action.payload.newPriority;
       task.modified = Date.now();
     },
+    updateTaskTaskDeferDate: (state: TaskList, action: PayloadAction<any>) => {
+      const task = state.taskList.byId[action.payload.taskId];
+
+      task.deferDate = action.payload.newDate;
+      task.modified = Date.now();
+    },
+    updateTaskTaskDueDate: (state: TaskList, action: PayloadAction<any>) => {
+      const task = state.taskList.byId[action.payload.taskId];
+
+      task.dueDate = action.payload.newDate;
+      task.modified = Date.now();
+    },
+    deleteTask: (state: TaskList, action: PayloadAction<any>) => {
+      delete state.taskList.byId[action.payload.taskId];
+      delete state.taskList.allIds[action.payload.taskId];
+    },
   },
 });
 
@@ -83,11 +102,19 @@ export const {
   updateTaskTaskStatus,
   updateTaskTaskNote,
   updateTaskTaskPriority,
+  updateTaskTaskDeferDate,
+  updateTaskTaskDueDate
 } = taskListSlice.actions;
 
-export const getTaskIds = (state: RootState) => state.tasks.taskList.allIds;
+export const getTasks = (state: RootState) => state.tasks.taskList;
 export const getSelectedTaskId = (state: RootState) => state.tasks.selectedTask;
-export const getSelectedTask = (state: RootState) =>
-  state.tasks.taskList.byId[state.tasks.selectedTask];
+export const getSelectedTask = (state: RootState) => {
+  const selected = state.tasks.selectedTask
+  if(selected !== null) {
+    return state.tasks.taskList.byId[selected];
+  } else {
+    return null
+  }
+}
 
 export default taskListSlice.reducer;

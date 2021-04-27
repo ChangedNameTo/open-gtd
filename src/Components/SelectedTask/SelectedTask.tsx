@@ -3,7 +3,10 @@ import { ChangeEvent } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 
-import { TaskStatus } from "../Task/TaskInterface";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+import Task, { TaskStatus } from "../Task/TaskInterface";
 import TextareaAutosize from "react-textarea-autosize";
 
 import {
@@ -13,14 +16,18 @@ import {
   updateTaskTaskName,
   updateTaskTaskStatus,
   updateTaskTaskNote,
+  updateTaskTaskDeferDate,
+  updateTaskTaskDueDate,
 } from "../TaskList/TaskListSlice";
 import PrioritySelect from "./PrioritySelect";
+import ButtonGroup from "../ButtonGroup/ButtonGroup";
 /**
  * After clicking on a task in
  * @returns {FunctionComponent}
  */
 function SelectedTask() {
   const selectedTaskId = useSelector(getSelectedTaskId);
+  const selectedTask: Task | null = useSelector(getSelectedTask);
   const dispatch = useAppDispatch();
 
   const updateTaskName = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -30,7 +37,7 @@ function SelectedTask() {
   };
 
   const closeSelectedTask = () => {
-    dispatch(selectTask("-1"));
+    dispatch(selectTask(null));
   };
 
   const updateTaskStatus = (status: TaskStatus) => {
@@ -45,10 +52,26 @@ function SelectedTask() {
     );
   };
 
-  const selectedTask = useSelector(getSelectedTask);
+  const updateTaskDeferDate = (e: Date) => {
+    const newDate = e ? e.getTime() : null;
+    dispatch(
+      updateTaskTaskDeferDate({ newDate: newDate, taskId: selectedTaskId })
+    );
+  };
+
+  const updateTaskDueDate = (e: Date) => {
+    const newDate = e ? e.getTime() : null;
+    dispatch(
+      updateTaskTaskDueDate({ newDate: newDate, taskId: selectedTaskId })
+    );
+  };
 
   // Early returns here to avoid having the selected task stay open at all times
-  if (selectedTaskId === "-1") {
+  if (
+    selectedTask === undefined ||
+    selectedTask === null ||
+    selectedTaskId === null
+  ) {
     return;
   }
 
@@ -81,16 +104,28 @@ function SelectedTask() {
     }
   };
 
-  const buttonIsActive = (status: TaskStatus) => {
-    if (selectedTask.status === status) {
-      return "text-bold bg-gray-700 text-gray-100 hover:text-gray-700 hover:bg-gray-300";
-    } else {
-      return "bg-gray-100 text-gray-700 hover:text-gray-700 hover:bg-gray-300";
-    }
-  };
-
   const taskSubsectionHeader = (subsectionHeader: string) => {
     return <div className="pt-1 font-bold text-lg">{subsectionHeader}</div>;
+  };
+
+  const datepicker = (
+    date: number | null,
+    dateChangeFunction: Function,
+    placeholderText: string
+  ) => {
+    const chosenDate = date ? new Date(date) : null;
+    return (
+      <DatePicker
+        selected={chosenDate}
+        onChange={(date) => dateChangeFunction(date)}
+        isClearable
+        placeholderText={placeholderText}
+        dateFormat="MM/dd/yyyy"
+        className="border rounded w-full"
+        todayButton="Today"
+        openToDate={new Date(Date.now())}
+      />
+    );
   };
 
   return (
@@ -100,7 +135,7 @@ function SelectedTask() {
         <div className="inline">
           {closeSelectedTaskButton()}
           <TextareaAutosize
-            className="w-full border border-gray-600 rounded-md my-1 px-1 hover:ring-2 hover:ring-gray-600 focus:outline-none h-auto font-medium"
+            className="w-full border border-gray-600 rounded-md my-1 px-1 hover:ring-2 hover:ring-gray-700 focus:outline-none h-auto font-medium"
             id="selectedTaskName"
             value={selectedTask.task}
             placeholder="Empty task text"
@@ -110,35 +145,12 @@ function SelectedTask() {
         {/* Button Group */}
         <div className="w-full pb-2">
           {taskSubsectionHeader("Task Status")}
-          <div className="flex flex-row">
-            <button
-              className={`${buttonIsActive(
-                TaskStatus.Active
-              )} border border-gray-600 flex-auto rounded-l duration-200 ease-in-out transition focus:outline-none`}
-              id="selectedTaskActiveButton"
-              onClick={() => updateTaskStatus(TaskStatus.Active)}
-            >
-              Active
-            </button>
-            <button
-              className={`${buttonIsActive(
-                TaskStatus.Complete
-              )} border border-gray-600 flex-auto duration-200 ease-in-out transition focus:outline-none`}
-              id="selectedTaskCompletedButton"
-              onClick={() => updateTaskStatus(TaskStatus.Complete)}
-            >
-              Complete
-            </button>
-            <button
-              className={`${buttonIsActive(
-                TaskStatus.Dropped
-              )} border border-gray-600 flex-auto rounded-r duration-200 ease-in-out transition focus:outline-none`}
-              id="selectedTaskDroppedButton"
-              onClick={() => updateTaskStatus(TaskStatus.Dropped)}
-            >
-              Dropped
-            </button>
-          </div>
+          {ButtonGroup(
+            selectedTask.status,
+            updateTaskStatus,
+            [TaskStatus.Active, TaskStatus.Complete, TaskStatus.Dropped],
+            "selectedTask"
+          )}
         </div>
         {/* Tags */}
         <div className="w-full pb-2">
@@ -150,16 +162,30 @@ function SelectedTask() {
           {taskSubsectionHeader("Priority")}
           {PrioritySelect(dispatch, selectedTaskId, selectedTask.priority)}
         </div>
+        {/* Defer/Due Dates */}
+        <div className="w-full">
+          {taskSubsectionHeader("Defer / Due Dates")}
+          <div className="w-full">
+            {datepicker(
+              selectedTask.deferDate,
+              updateTaskDeferDate,
+              "Defer Date"
+            )}
+          </div>
+          <div className="w-full">
+            {datepicker(selectedTask.dueDate, updateTaskDueDate, "Due Date")}
+          </div>
+        </div>
         {/* Note */}
         <div className="w-full">
           {taskSubsectionHeader("Task Note")}
-          <textarea
+          <TextareaAutosize
             className="w-full border border-gray-600 rounded-md my-1 resize-y px-1 hover:ring-2 hover:ring-gray-600 focus:outline-none"
             placeholder="Note"
             id="selectedTaskNote"
             value={selectedTask.note}
             onChange={(e) => updateTaskNote(e)}
-          ></textarea>
+          />
         </div>
         {/* Dates */}
         <div className="w-full py-2">
