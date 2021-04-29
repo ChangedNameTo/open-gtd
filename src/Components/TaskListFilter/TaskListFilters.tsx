@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks";
-import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import { TaskPriority, TaskStatus } from "../Task/TaskInterface";
 import { addFilterPreset } from "../TaskFilterPreset/TaskFilterPresetSlice";
+import TaskListFilterSelect from "./TaskListFilterSelect";
 import {
   getFilters,
   setCompletionFilter,
@@ -13,30 +12,9 @@ import {
 } from "./TaskFilterSlice";
 
 function TaskListFilters() {
-  const isInitialMount = useRef(true);
-
-  const [visible, setVisible] = useState(true);
-  const [hidden, setHidden] = useState("");
-
   const dispatch = useAppDispatch();
 
   const currentFilters = useSelector(getFilters);
-
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      if (!visible) {
-        setTimeout(() => {
-          setHidden("hidden");
-        }, 250);
-      } else {
-        setTimeout(() => {
-          setHidden("");
-        }, 250);
-      }
-    }
-  }, [visible]);
 
   const updateCompletionFilter = (status: TaskStatus) => {
     dispatch(setCompletionFilter(status));
@@ -50,7 +28,7 @@ function TaskListFilters() {
     dispatch(setHasNoteFilter(status));
   };
 
-  const updateClearAllFilters = () => {
+  const saveClearAllFilters = () => {
     dispatch(clearAllFilters());
   };
 
@@ -58,99 +36,58 @@ function TaskListFilters() {
     dispatch(addFilterPreset(currentFilters));
   };
 
-  const buttonIsActive = () => {
-    if (visible) {
-      return "text-bold bg-gray-600 text-gray-100";
-    } else {
-      return "bg-gray-100 text-gray-600 hover:text-gray-600 hover:bg-gray-300";
-    }
-  };
-
-  const toggleVisible = () => setVisible(!visible);
-
-  const isHidden = () => {
-    return hidden ? "hidden" : "";
-  };
-
-  const addFiltersDivClasses = () => {
-    return visible ? "animate-fade-in-down" : "animate-fade-out-up";
+  const filterDivClasses = () => {
+    return "px-2 py-3 my-2 mx-2 md:mx-0 bg-white shadow rounded-lg";
   };
 
   return (
-    <div className="py-2">
-      <button
-        className={`${buttonIsActive()} w-full items-center px-4 rounded-md shadow-m font-medium border-2 border-gray-600 focus:outline-none`}
-        id="taskFilterButton"
-        onClick={() => toggleVisible()}
-      >
-        Filter Tasks
-      </button>
-      <div className={`${addFiltersDivClasses()} ${isHidden()} flex flex-row`}>
-        <div className="w-full shadow-lg rounded my-1 border border-gray-600 p-1">
-          <div className="font-semibold text-center">Filters Visible</div>
-          <div className="space-y-2">
-            <div className="block">
-              <div className="font-semibold">Priority Filter</div>
-              {ButtonGroup(
-                currentFilters.priority,
-                updatePriorityFilter,
-                [
-                  null,
-                  TaskPriority.None,
-                  TaskPriority.Low,
-                  TaskPriority.Medium,
-                  TaskPriority.High,
-                  TaskPriority.Immediate,
-                ],
-                "completionFilter"
-              )}
-            </div>
-            <div className="block">
-              <div className="font-semibold">Status Filter</div>
-              <div>
-                {ButtonGroup(
-                  currentFilters.completion,
-                  updateCompletionFilter,
-                  [
-                    null,
-                    TaskStatus.Active,
-                    TaskStatus.Complete,
-                    TaskStatus.Dropped,
-                  ],
-                  "completionFilter"
-                )}
-              </div>
-            </div>
-            <div className="block">
-              <div className="font-semibold">Tag Filter</div>
-              Not Implemented
-            </div>
-            <div className="block">
-              <div className="font-semibold">Note Filter</div>
-              <div>
-                {ButtonGroup(
-                  currentFilters.hasNote,
-                  updateHasNoteFilter,
-                  [null, true, false],
-                  "completionFilter"
-                )}
-              </div>
-            </div>
-            <div className="flex flex-row space-x-2">
-              <button
-                className="font-bold w-full border-2 border-red-600 bg-red-100 rounded text-red-600 hover:bg-red-600 hover:text-white"
-                onClick={() => updateClearAllFilters()}
-              >
-                Clear All Filters
-              </button>
-              <button
-                className="font-bold w-full border-2 border-green-600 bg-green-100 rounded text-green-600 hover:bg-green-600 hover:text-white"
-                onClick={() => saveNewTaskFilterPreset()}
-              >
-                Save as Task Filter Preset
-              </button>
-            </div>
-          </div>
+    <div className="border-t w-full mx-auto sm:px-1 lg:px-3 mt-8 bg-gray-100 grid md:grid-cols-4 md:gap-2 sm:grid-cols-1">
+      <div className={filterDivClasses()}>
+        {TaskListFilterSelect(
+          currentFilters.completion,
+          updateCompletionFilter,
+          "Task Status",
+          [TaskStatus.Active, TaskStatus.Complete, TaskStatus.Dropped, null]
+        )}
+      </div>
+      <div className={filterDivClasses()}>
+        {TaskListFilterSelect(
+          currentFilters.priority,
+          updatePriorityFilter,
+          "Task Priority",
+          [
+            TaskPriority.None,
+            TaskPriority.Low,
+            TaskPriority.Medium,
+            TaskPriority.High,
+            TaskPriority.Immediate,
+            null,
+          ]
+        )}
+      </div>
+      <div className={filterDivClasses()}>
+        {TaskListFilterSelect(
+          currentFilters.hasNote,
+          updateHasNoteFilter,
+          "Has Note?",
+          [true, false, null]
+        )}
+      </div>
+      <div className={filterDivClasses()}>
+        <label className="block text-sm font-bold">Filter Actions</label>
+        <div className="flex flex-row justify-center">
+          <button
+            className="ml-3 mt-1 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-0 sm:ml-0"
+            onClick={() => saveClearAllFilters()}
+          >
+            Clear All Filters
+          </button>
+          <button
+            className="mt-1 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 ml-3"
+            onClick={() => saveNewTaskFilterPreset()}
+          >
+            Save New Preset
+          </button>
         </div>
       </div>
     </div>

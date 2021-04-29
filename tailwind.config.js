@@ -8,7 +8,7 @@ module.exports = {
       listStyleType: ["hover", "focus"],
     },
     fontFamily: {
-      sans: ["Helvetica"],
+      sans: ["Inter"],
     },
     keyframes: {
       "fade-in-down": {
@@ -45,5 +45,5 @@ module.exports = {
       fontWeight: ["hover"],
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms"), require('tailwindcss-font-inter')()],
 };

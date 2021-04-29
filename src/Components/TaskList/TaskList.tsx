@@ -1,16 +1,15 @@
 import { useSelector } from "react-redux";
-
-import AddNewTask from "../AddNewTask/AddNewTask";
+import { Fragment } from "react";
 import { getTasks } from "./TaskListSlice";
-import TaskRow from "../Task/Task";
-import TaskListFilters from "../TaskListFilter/TaskListFilters";
+import TinyTask from "../Task/TinyTask";
+import Task from "../Task/Task";
 import { getFilters } from "../TaskListFilter/TaskFilterSlice";
 
 /**
  * Creates the Task Rows for the main task UI.
  * @returns {FunctionComponent}
  */
-function TaskRowDisplay() {
+function TaskList() {
   const taskList = useSelector(getTasks);
   const taskListFilters = useSelector(getFilters);
 
@@ -42,6 +41,18 @@ function TaskRowDisplay() {
     }
   };
 
+  const buildTinyTaskList = () => {
+    if (taskList.allIds) {
+      return taskList.allIds
+        .filter(completionFilter)
+        .filter(priorityFilter)
+        .filter(hasNoteFilter)
+        .map((taskId, index) => {
+          return <TinyTask taskId={taskId} key={index} />;
+        });
+    }
+  };
+
   const buildTaskList = () => {
     if (taskList.allIds) {
       return taskList.allIds
@@ -49,31 +60,53 @@ function TaskRowDisplay() {
         .filter(priorityFilter)
         .filter(hasNoteFilter)
         .map((taskId, index) => {
-          return <TaskRow taskId={taskId} key={index} />;
+          return <Task taskId={taskId} key={index} />;
         });
     }
   };
 
   return (
-    <div className="flex flex-col px-2 flex-1">
-      <div className="header bg-white shadow">
-        <div className="max-w-4xl mx-auto py-2 px-1 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900 text-center">
-            Tasks
-          </h1>
+    <Fragment>
+      {/* Projects list (only on smallest breakpoint) */}
+      <div className="mt-10 sm:hidden">
+        <div className="px-4 sm:px-6">
+          <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
+            Projects
+          </h2>
+        </div>
+        <ul className="mt-3 border-t border-gray-200 divide-y divide-gray-100">
+          {buildTinyTaskList()}
+        </ul>
+      </div>
+      {/* Projects table (small breakpoint and up) */}
+      <div className="hidden sm:block">
+        <div className="align-middle inline-block min-w-full border-b border-gray-200">
+          <table className="min-w-full">
+            <thead>
+              <tr className="border-t border-gray-200">
+                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <span className="lg:pl-2">Task</span>
+                </th>
+                <th className="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Priority
+                </th>
+                <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Last updated
+                </th>
+                <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-100">
+              {buildTaskList()}
+            </tbody>
+          </table>
         </div>
       </div>
-      <table
-        className="table-auto divide-y divide-gray-300 flex-initial"
-        id="taskList"
-      >
-        <tbody>{buildTaskList()}</tbody>
-      </table>
-      <br />
-      {AddNewTask()}
-      {TaskListFilters()}
-    </div>
+    </Fragment>
   );
 }
 
-export default TaskRowDisplay;
+export default TaskList;
