@@ -21,7 +21,7 @@ const teams = [
 function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
   return (
     <div className="hidden lg:flex lg:flex-shrink-0">
-      <div className="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-gray-100">
+      <div className="flex flex-col w-64 border-r border-gray-200 pt-5 bg-gray-100">
         <div className="flex items-center flex-shrink-0 px-6">
           <img
             className="h-8 w-auto"
@@ -117,6 +117,18 @@ function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
               </div>
             </div>
           </nav>
+        </div>
+        <div className="flex-shrink-0 flex bg-gray-200 p-4">
+          <ul className="divide">
+            <li key={1} className="py-4 flex">
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-900">
+                  OpenGTD Github
+                </p>
+                <p className="text-sm text-gray-500">Follow the project</p>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

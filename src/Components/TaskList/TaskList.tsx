@@ -41,12 +41,17 @@ function TaskList() {
     }
   };
 
+  const archivedFilter = (taskId: string) => {
+    return getTaskById(taskId).archived === null;
+  };
+
   const buildTinyTaskList = () => {
     if (taskList.allIds) {
       return taskList.allIds
         .filter(completionFilter)
         .filter(priorityFilter)
         .filter(hasNoteFilter)
+        .filter(archivedFilter)
         .map((taskId, index) => {
           return <TinyTask taskId={taskId} key={index} />;
         });
@@ -59,6 +64,7 @@ function TaskList() {
         .filter(completionFilter)
         .filter(priorityFilter)
         .filter(hasNoteFilter)
+        .filter(archivedFilter)
         .map((taskId, index) => {
           return <Task taskId={taskId} key={index} />;
         });
@@ -94,7 +100,10 @@ function TaskList() {
                   Priority
                 </th>
                 <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Last updated
+                  Defer Date
+                </th>
+                <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Due Date
                 </th>
                 <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
               </tr>

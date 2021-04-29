@@ -23,8 +23,6 @@ function Task(props: { taskId: string }) {
   const setSelectTask = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement, MouseEvent>
   ) => {
-    console.log(e.target);
-    console.log(e.currentTarget);
     if (e.target !== e.currentTarget) {
       return;
     }
@@ -104,7 +102,7 @@ function Task(props: { taskId: string }) {
   };
 
   const formatTaskDates = (date: number | null) => {
-    if (date) {
+    if (date && date > 0) {
       return new Date(date).toLocaleDateString("en-us");
     } else {
       return "-";
@@ -134,17 +132,21 @@ function Task(props: { taskId: string }) {
           </div>
         </div>
       </td>
-      {/* Members */}
+      {/* Priority */}
       <td className="py-0.5 text-sm text-gray-500 font-medium text-center">
         {priorityIcon()}
       </td>
-      {/* Last Modified */}
+      {/* Defer Date */}
       <td className="hidden md:table-cell px-6 py-0.5 whitespace-nowrap text-sm text-gray-500 text-right">
-        {formatTaskDates(task.modified)}
+        {formatTaskDates(task.deferDate)}
+      </td>
+      {/* Due Date */}
+      <td className="hidden md:table-cell px-6 py-0.5 whitespace-nowrap text-sm text-gray-500 text-right">
+        {formatTaskDates(task.dueDate)}
       </td>
       {/* Options */}
       <td className="pr-6">
-        <div className="relative flex justify-end items-center">
+        <div className="relative flex justify-end items-center cursor-pointer">
           <span className="sr-only">Copy Note</span>
           {noteIcon()}
         </div>

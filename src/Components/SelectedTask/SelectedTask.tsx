@@ -18,10 +18,13 @@ import {
   updateTaskTaskNote,
   updateTaskTaskDeferDate,
   updateTaskTaskDueDate,
+  selectTask,
+  archiveTask,
 } from "../TaskList/TaskListSlice";
 
 import PrioritySelect from "./PrioritySelect";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
+import { TrashIcon } from "@heroicons/react/solid";
 /**
  * After clicking on a task in
  * @returns {FunctionComponent}
@@ -33,12 +36,20 @@ function SelectedTask() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (selectedTaskId !== "-1") {
+    if (selectedTaskId !== null) {
       setOpen(true);
     } else {
       setOpen(false);
     }
   }, [selectedTaskId]);
+
+  const clearSelectedTask = () => {
+    dispatch(selectTask(null));
+  };
+
+  const deleteSelectedTask = (id: string) => {
+    dispatch(archiveTask({ taskId: id }));
+  };
 
   const updateTaskName = (e: ChangeEvent<HTMLTextAreaElement>) => {
     dispatch(
@@ -81,16 +92,23 @@ function SelectedTask() {
     return;
   }
 
-  const styleDates = (date: number) => {
-    if (date > 0) {
+  const styleDates = (date: number | null) => {
+    if (date !== null && date > 0) {
       return new Date(date).toLocaleString("en-us");
     } else {
       return "N/A";
     }
   };
 
-  const taskSubsectionHeader = (subsectionHeader: string) => {
-    return <div className="pt-1 font-bold text-lg">{subsectionHeader}</div>;
+  const taskSubsectionHeader = (subsectionHeader: string, id: string) => {
+    return (
+      <label
+        htmlFor={id}
+        className="block text-lg font-medium text-gray-900 sm:mt-px sm:pt-2"
+      >
+        {subsectionHeader}
+      </label>
+    );
   };
 
   const datepicker = (
@@ -106,7 +124,7 @@ function SelectedTask() {
         isClearable
         placeholderText={placeholderText}
         dateFormat="MM/dd/yyyy"
-        className="border rounded w-full"
+        className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
         todayButton="Today"
         openToDate={new Date(Date.now())}
       />
@@ -114,7 +132,7 @@ function SelectedTask() {
   };
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={open} as={Fragment} afterLeave={clearSelectedTask}>
       <Dialog
         as="div"
         static
@@ -148,11 +166,12 @@ function SelectedTask() {
               <div className="w-screen max-w-md">
                 <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
                   <div className="px-4 sm:px-6">
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start justify-between border-b pb-2">
+                      {/* Task Text */}
                       <Dialog.Title className="flex-grow text-lg font-medium text-gray-900">
                         <label
                           htmlFor="task"
-                          className="block text-sm font-medium text-gray-700"
+                          className="block text-lg font-medium text-gray-700"
                         >
                           Task
                         </label>
@@ -168,6 +187,7 @@ function SelectedTask() {
                           />
                         </div>
                       </Dialog.Title>
+                      {/* Close Icon */}
                       <div className="ml-3 h-7 flex items-center">
                         <button
                           className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -179,12 +199,11 @@ function SelectedTask() {
                       </div>
                     </div>
                   </div>
-                  <div className="mt-6 relative flex-1 px-4 sm:px-6">
-                    {/* Replace with your content */}
-                    <div className="absolute inset-0 px-4 sm:px-6">
+                  <div className="relative flex-1 px-4 sm:px-6">
+                    <div className="absolute inset-0 px-4 sm:px-6 divide-y space-y-2">
                       {/* Button Group */}
-                      <div className="w-full pb-2">
-                        {taskSubsectionHeader("Task Status")}
+                      <div className="w-full">
+                        {taskSubsectionHeader("Task Status", "taskStatus")}
                         {ButtonGroup(
                           selectedTask.status,
                           updateTaskStatus,
@@ -197,13 +216,13 @@ function SelectedTask() {
                         )}
                       </div>
                       {/* Tags */}
-                      <div className="w-full pb-2">
-                        {taskSubsectionHeader("Tags")}
-                        Not Implemented
+                      <div className="w-full">
+                        {taskSubsectionHeader("Tags", "tags")}
+                        <div className="text-gray-500">Not Implemented</div>
                       </div>
                       {/* Priority */}
-                      <div className="w-full pb-2">
-                        {taskSubsectionHeader("Priority")}
+                      <div className="w-full">
+                        {taskSubsectionHeader("Priority", "priority")}
                         {PrioritySelect(
                           dispatch,
                           selectedTaskId,
@@ -212,7 +231,7 @@ function SelectedTask() {
                       </div>
                       {/* Defer/Due Dates */}
                       <div className="w-full">
-                        {taskSubsectionHeader("Defer / Due Dates")}
+                        {taskSubsectionHeader("Defer/Due Dates", "duedates")}
                         <div className="w-full">
                           {datepicker(
                             selectedTask.deferDate,
@@ -230,39 +249,71 @@ function SelectedTask() {
                       </div>
                       {/* Note */}
                       <div className="w-full">
-                        {taskSubsectionHeader("Task Note")}
+                        {taskSubsectionHeader("Task Note", "taskNote")}
                         <TextareaAutosize
-                          className="w-full border border-gray-600 rounded-md my-1 resize-y px-1 hover:ring-2 hover:ring-gray-600 focus:outline-none"
-                          placeholder="Note"
+                          className="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                          placeholder="Empty Note"
                           id="selectedTaskNote"
                           value={selectedTask.note}
                           onChange={(e) => updateTaskNote(e)}
                         />
                       </div>
                       {/* Dates */}
-                      <div className="w-full py-2">
-                        {taskSubsectionHeader("Task Dates")}
+                      <div className="w-full">
+                        {taskSubsectionHeader("Task Dates", "taskDates")}
                         <div>
-                          <div className="inline font-bold">Created: </div>
-                          <div id="selectedTaskCreated" className="inline">
+                          <div className="inline font-medium">Created: </div>
+                          <div
+                            id="selectedTaskCreated"
+                            className="inline text-sm text-gray-900"
+                          >
                             {styleDates(selectedTask.created)}
                           </div>
                         </div>
                         <div>
-                          <div className="inline font-bold">Modified: </div>
-                          <div id="selectedTaskModified" className="inline">
+                          <div className="inline font-medium">Modified: </div>
+                          <div
+                            id="selectedTaskModified"
+                            className="inline text-sm text-gray-900"
+                          >
                             {styleDates(selectedTask.modified)}
                           </div>
                         </div>
                         <div>
-                          <div className="inline font-bold">Completed: </div>
-                          <div id="selectedTaskCompleted" className="inline">
+                          <div className="inline font-medium">Completed: </div>
+                          <div
+                            id="selectedTaskCompleted"
+                            className="inline text-sm text-gray-900"
+                          >
                             {styleDates(selectedTask.completed)}
                           </div>
                         </div>
+                        <div>
+                          <div className="inline font-medium">Archived: </div>
+                          <div
+                            id="selectedTaskCompleted"
+                            className="inline text-sm text-gray-900"
+                          >
+                            {styleDates(selectedTask.archived)}
+                          </div>
+                        </div>
+                      </div>
+                      {/* Additional Actions */}
+                      <div className="w-full">
+                        {taskSubsectionHeader("Actions", "actions")}
+                        <button
+                          type="button"
+                          className="inline-flex w-full items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          onClick={() => deleteSelectedTask(selectedTaskId)}
+                        >
+                          <TrashIcon
+                            className="-ml-1 mr-3 h-5 w-5"
+                            aria-hidden="true"
+                          />
+                          Archive Task
+                        </button>
                       </div>
                     </div>
-                    {/* /End replace */}
                   </div>
                 </div>
               </div>

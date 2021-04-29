@@ -32,4 +32,5 @@ export default interface Task {
   readonly created: number;
   modified: number;
   completed: number;
+  archived: number | null;
 }

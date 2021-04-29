@@ -41,7 +41,7 @@ function PrioritySelect(
   // TODO: Change this to use divs and a's instead of being a select
   return (
     <select
-      className="mt-1 w-full border border-gray-600 rounded-md focus:outline-none hover:ring-2 hover:ring-gray-600"
+      className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
       onChange={(e) => updateTaskPriority(e)}
       id="selectedTaskPrioritySelect"
       value={currentPriority}

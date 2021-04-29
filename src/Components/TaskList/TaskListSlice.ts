@@ -9,7 +9,7 @@ enableMapSet();
 
 const initialState: TaskList = {
   taskList: { byId: {}, allIds: [] },
-  selectedTask: "-1",
+  selectedTask: null,
 };
 
 export const taskListSlice = createSlice({
@@ -33,12 +33,13 @@ export const taskListSlice = createSlice({
 
         priority: TaskPriority.None,
 
-        dueDate:-1,
-        deferDate:-1,
+        dueDate: null,
+        deferDate: null,
 
         created: Date.now(),
         modified: Date.now(),
         completed: -1,
+        archived: null,
       };
       state.taskList.allIds.push(newTaskId);
     },
@@ -88,9 +89,11 @@ export const taskListSlice = createSlice({
       task.dueDate = action.payload.newDate;
       task.modified = Date.now();
     },
-    deleteTask: (state: TaskList, action: PayloadAction<any>) => {
-      delete state.taskList.byId[action.payload.taskId];
-      delete state.taskList.allIds[action.payload.taskId];
+    archiveTask: (state: TaskList, action: PayloadAction<any>) => {
+      const task = state.taskList.byId[action.payload.taskId];
+
+      task.archived = Date.now();
+      task.modified = Date.now();
     },
   },
 });
@@ -103,18 +106,19 @@ export const {
   updateTaskTaskNote,
   updateTaskTaskPriority,
   updateTaskTaskDeferDate,
-  updateTaskTaskDueDate
+  updateTaskTaskDueDate,
+  archiveTask,
 } = taskListSlice.actions;
 
 export const getTasks = (state: RootState) => state.tasks.taskList;
 export const getSelectedTaskId = (state: RootState) => state.tasks.selectedTask;
 export const getSelectedTask = (state: RootState) => {
-  const selected = state.tasks.selectedTask
-  if(selected !== null) {
+  const selected = state.tasks.selectedTask;
+  if (selected !== null) {
     return state.tasks.taskList.byId[selected];
   } else {
-    return null
+    return null;
   }
-}
+};
 
 export default taskListSlice.reducer;
