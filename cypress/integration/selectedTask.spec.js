@@ -49,7 +49,7 @@ context("Selected Tasks", () => {
 
     it("Expects the status to have a completed date on completion", () => {
       cy.get("#taskId0").click();
-      cy.get("#selectedTaskCompletedButton").click();
+      cy.get("#selectedTaskCompleteButton").click();
       cy.get("#selectedTaskCompleted").should("not.have.text", "N/A");
     });
 

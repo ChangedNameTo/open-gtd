@@ -8,7 +8,7 @@ context("Tasks", () => {
 
   describe("Basic task CRUD actions", () => {
     it("Expects the add task input to be hidden", () => {
-      cy.get("#addTaskInput").should("be.hidden");
+      cy.get("#addTaskInput").should("not.exist");
     });
 
     it("Expects the add task input to be revealed after clicking on the button", () => {

@@ -87,7 +87,7 @@ function TaskList() {
       {/* Projects table (small breakpoint and up) */}
       <div className="hidden sm:block">
         <div className="align-middle inline-block min-w-full border-b border-gray-200">
-          <table className="min-w-full">
+          <table className="min-w-full" id="taskList">
             <thead>
               <tr className="border-t border-gray-200">
                 <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

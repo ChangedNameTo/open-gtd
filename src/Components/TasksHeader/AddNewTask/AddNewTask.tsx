@@ -57,11 +57,18 @@ function AddNewTask() {
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setTaskText(e.target.value)
                   }
-                  onKeyDown={(e) => onEnterPress(e)}
+                  onKeyDown={(e) => {
+                    onEnterPress(e);
+                    open = false;
+                  }}
                 />
                 <button
                   className="absolute inset-y-0 right-0 pl-3 pr-3 flex items-center bg-purple-500 rounded rounded-l-none"
-                  onClick={() => createNewTask()}
+                  id="submitNewTaskButton"
+                  onClick={() => {
+                    createNewTask();
+                    open = false;
+                  }}
                 >
                   <CheckCircleIcon className="h-5 w-5 text-white" />
                 </button>

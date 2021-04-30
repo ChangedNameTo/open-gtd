@@ -15,6 +15,12 @@ Cypress.Commands.add("add_task", (taskName) => {
   cy.get("#addTaskInput").type(taskName);
   cy.get("#submitNewTaskButton").click();
 });
+
+Cypress.Commands.add("add_task_enter", (taskName) => {
+  cy.contains("Add New Task").click();
+  cy.get("#addTaskInput").type(taskName);
+  cy.get("#addTaskInput").type({enter});
+});
 //
 //
 // -- This is a child command --

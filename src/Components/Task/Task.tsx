@@ -110,7 +110,11 @@ function Task(props: { taskId: string }) {
   };
 
   return (
-    <tr key={props.taskId} onClick={(e) => setSelectTask(e)}>
+    <tr
+      key={props.taskId}
+      id={`taskId${props.taskId}`}
+      onClick={(e) => setSelectTask(e)}
+    >
       <td className="px-6 py-0.5 text-sm text-gray-500 font-medium">
         {taskCheckboxIcon()}
       </td>

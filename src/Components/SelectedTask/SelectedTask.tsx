@@ -177,13 +177,13 @@ function SelectedTask() {
                         </label>
                         <div className="mt-1">
                           <textarea
-                            id="task"
-                            name="task"
+                            id="selectedTaskName"
+                            name="selectedTaskName"
                             rows={4}
                             value={selectedTask.task}
                             onChange={(e) => updateTaskName(e)}
                             className="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-                            placeholder="Empty Task Text"
+                            placeholder="Empty task text"
                           />
                         </div>
                       </Dialog.Title>
@@ -191,6 +191,7 @@ function SelectedTask() {
                       <div className="ml-3 h-7 flex items-center">
                         <button
                           className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          id="closeSelectedTask"
                           onClick={() => setOpen(false)}
                         >
                           <span className="sr-only">Close panel</span>

@@ -2,6 +2,8 @@
   "projectId": "bwydbm",
   "retries": {
     "runMode": 1,
-    "openMode": 1
-  }
+    "openMode":0 
+  },
+  "viewportHeight":1080,
+  "viewportWidth":1920
 }
