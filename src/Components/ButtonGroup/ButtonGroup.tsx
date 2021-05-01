@@ -6,9 +6,9 @@ function ButtonGroup(
 ) {
   const buttonIsActive = (option: any) => {
     if (buttonGroupSelectedOption === option) {
-      return "font-semibold bg-gray-700 text-gray-100";
+      return "font-semibold bg-indigo-700 text-white hover:text-indigo-700 hover:bg-indigo-300";
     } else {
-      return "bg-gray-100 text-gray-700 hover:text-gray-700 hover:bg-gray-300";
+      return "font-medium bg-gray-100 text-gray-700 hover:text-gray-700 hover:bg-gray-300";
     }
   };
 
@@ -31,7 +31,7 @@ function ButtonGroup(
       <button
         className={`${buttonIsActive(
           buttonText
-        )} border border-gray-600 flex-auto rounded-l duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-700`}
+        )} -ml-px w-full items-center px-4 py-2 rounded-l-md border border-gray-300 text-sm focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500`}
         id={`${idPrefix}${buttonText}Button`}
         onClick={() => onClickArg(buttonText)}
         key={buttonText}
@@ -47,7 +47,7 @@ function ButtonGroup(
         <button
           className={`${buttonIsActive(
             buttonText
-          )} border border-gray-600 flex-auto duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-700`}
+          )} -ml-px w-full items-center px-4 py-2 border border-gray-300 bg-white text-sm focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500`}
           id={`${idPrefix}${buttonText}Button`}
           onClick={() => onClickArg(buttonText)}
           key={buttonText}
@@ -64,7 +64,7 @@ function ButtonGroup(
       <button
         className={`${buttonIsActive(
           buttonText
-        )} border border-gray-600 flex-auto rounded-r duration-200 ease-in-out transition focus:outline-none hover:ring-2 hover:ring-gray-600`}
+        )} -ml-px w-full items-center px-4 py-2 rounded-r-md border border-gray-300 text-sm focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500`}
         id={`${idPrefix}${buttonText}Button`}
         onClick={() => onClickArg(buttonText)}
         key={buttonText}
@@ -75,7 +75,7 @@ function ButtonGroup(
   };
 
   return (
-    <div className="flex flex-row">
+    <div className="relative z-0 flex flex-row shadow-sm rounded-md">
       {leftButton()}
       {middleButtons()}
       {rightButton()}
