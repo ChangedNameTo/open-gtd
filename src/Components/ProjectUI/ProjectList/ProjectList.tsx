@@ -4,10 +4,12 @@ import { getTasks } from "../../TaskUI/TaskList/TaskListSlice";
 import TinyProject from "../Project/TinyProject";
 import { getProjects } from "./ProjectListSlice";
 import Task from "../../TaskUI/Task/Task";
+import { useRouteMatch, Link } from "react-router-dom";
 
 function ProjectList() {
   const projectList = useSelector(getProjects);
   const taskList = useSelector(getTasks);
+  const match = useRouteMatch();
 
   const getTaskById = (taskId: string) => taskList.byId[taskId];
 
@@ -60,11 +62,13 @@ function ProjectList() {
     return projectList.allIds.map((project) => {
       return (
         <div key={project}>
-          <div className="bg-white px-4 py-5 border-t-2 mt-1 border-gray-200 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
-              {projectList.byId[project].project}
-            </h3>
-          </div>
+          <Link to={`/projects/${project}`}>
+            <div className="bg-white px-4 py-5 border-t-2 mt-1 border-gray-200 sm:px-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                {projectList.byId[project].project}
+              </h3>
+            </div>
+          </Link>
           <table className="min-w-full" id="taskList">
             <thead>
               <tr className="border-t border-gray-200">
