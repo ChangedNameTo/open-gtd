@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import TaskFilter, {
   TaskFilterPreset,
-} from "../TaskListFilter/TaskFiltersInterface";
+} from "../TaskUI/TaskListFilter/TaskFiltersInterface";
 import { RootState } from "../../store";
 
 const initialState: TaskFilterPreset = {

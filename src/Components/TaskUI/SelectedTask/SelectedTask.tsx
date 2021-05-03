@@ -1,6 +1,6 @@
 import { ChangeEvent, useState, Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "../../../hooks";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -23,7 +23,7 @@ import {
 } from "../TaskList/TaskListSlice";
 
 import PrioritySelect from "./PrioritySelect";
-import ButtonGroup from "../ButtonGroup/ButtonGroup";
+import ButtonGroup from "../../ButtonGroup/ButtonGroup";
 import { TrashIcon } from "@heroicons/react/solid";
 /**
  * After clicking on a task in

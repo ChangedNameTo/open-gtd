@@ -1,6 +1,6 @@
 import { enableMapSet } from "immer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
+import { RootState } from "../../../store";
 
 import TaskList from "./TaskListInterface";
 import { TaskPriority, TaskStatus } from "../Task/TaskInterface";

@@ -3,7 +3,7 @@ import { Disclosure, Transition } from "@headlessui/react";
 
 import { addTask } from "../../TaskList/TaskListSlice";
 import { CheckCircleIcon } from "@heroicons/react/outline";
-import { useAppDispatch } from "../../../hooks";
+import { useAppDispatch } from "../../../../hooks";
 
 /**
  * Returns the AddNewTask Button, and the input it controls

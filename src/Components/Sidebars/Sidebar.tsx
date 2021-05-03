@@ -1,14 +1,16 @@
 import UserProfileDropdown from "../UserProfileDropdown";
-import { HomeIcon, SearchIcon } from "@heroicons/react/outline";
+import {
+  HomeIcon,
+  SearchIcon,
+  ClipboardListIcon,
+} from "@heroicons/react/outline";
+
+import { Link, useLocation } from "react-router-dom";
 
 // @ts-ignore: Unreachable code error
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-
-const navigation = [
-  { name: "Tasks", href: "#", icon: HomeIcon, current: true },
-];
 
 const teams = [
   { name: "Doesn't Do Anything", href: "#", bgColorClass: "bg-indigo-500" },
@@ -19,6 +21,21 @@ const teams = [
  * @return {FunctionComponent}
  */
 function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
+  const currentURL = useLocation();
+  console.log(currentURL.pathname);
+
+  const isActive = (href: string) => currentURL.pathname === href;
+
+  const navigation = [
+    { name: "Tasks", href: "/", icon: HomeIcon, current: isActive("/") },
+    {
+      name: "Projects",
+      href: "/projects",
+      icon: ClipboardListIcon,
+      current: isActive("/projects"),
+    },
+  ];
+
   return (
     <div className="hidden lg:flex lg:flex-shrink-0">
       <div className="flex flex-col w-64 border-r border-gray-200 pt-5 bg-gray-100">
@@ -61,9 +78,10 @@ function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
           <nav className="px-3 mt-6">
             <div className="space-y-1">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
+                  to={`${item.href}`}
                   className={classNames(
                     item.current
                       ? "bg-gray-200 text-gray-900"
@@ -82,7 +100,7 @@ function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
                     aria-hidden="true"
                   />
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
             <div className="mt-8">

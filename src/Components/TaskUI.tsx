@@ -1,5 +1,5 @@
-import TaskRowDisplay from "./TaskList/TaskList";
-import SelectedTask from "./SelectedTask/SelectedTask";
+import TaskRowDisplay from "./TaskUI/TaskList/TaskList";
+import SelectedTask from "./TaskUI/SelectedTask/SelectedTask";
 import Folders from "./Folders";
 
 /**

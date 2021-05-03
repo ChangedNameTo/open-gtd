@@ -4,8 +4,8 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
 
-import taskReducer from "./Components/TaskList/TaskListSlice";
-import taskFilterReducer from "./Components/TaskListFilter/TaskFilterSlice";
+import taskReducer from "./Components/TaskUI/TaskList/TaskListSlice";
+import taskFilterReducer from "./Components/TaskUI/TaskListFilter/TaskFilterSlice";
 import taskFilterPresetReducer from "./Components/TaskFilterPreset/TaskFilterPresetSlice";
 
 const persistConfig = {
@@ -28,7 +28,7 @@ const filtersPersistConfig = {
 const presetsPersistConfig = {
   key: "presets",
   storage,
-}
+};
 
 const reducers = combineReducers({
   tasks: persistReducer(taskPersistConfig, taskReducer),

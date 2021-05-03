@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "../../../hooks";
 import { TaskPriority, TaskStatus } from "../Task/TaskInterface";
-import { addFilterPreset } from "../TaskFilterPreset/TaskFilterPresetSlice";
+import { addFilterPreset } from "../../TaskFilterPreset/TaskFilterPresetSlice";
 import TaskListFilterSelect from "./TaskListFilterSelect";
 import {
   getFilters,

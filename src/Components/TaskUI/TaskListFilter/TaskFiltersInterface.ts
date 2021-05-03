@@ -1,4 +1,4 @@
-import NormalizedObjects from "../NormalizedObjects/NormalizedObjects";
+import NormalizedObjects from "../../NormalizedObjects/NormalizedObjects";
 import { TaskPriority, TaskStatus } from "../Task/TaskInterface";
 
 export interface TaskFilterPreset {

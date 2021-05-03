@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../hooks";
-import { RootState } from "../../store";
+import { useAppDispatch } from "../../../hooks";
+import { RootState } from "../../../store";
 import { selectTask, updateTaskTaskStatus } from "../TaskList/TaskListSlice";
 import { TaskStatus } from "./TaskInterface";
 import {
