@@ -16,16 +16,19 @@ export const taskListSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    addTask: (state: TaskList, action: PayloadAction<string>) => {
+    addTask: (state: TaskList, action: PayloadAction<any>) => {
       // Do not add task if the field is empty
-      if (action.payload === "") {
+      if (action.payload.task === "") {
         return;
       }
 
       const newTaskId = String(state.taskList.allIds.length);
+      const newTaskProject = action.payload.project
+        ? action.payload.project
+        : null;
 
       state.taskList.byId[newTaskId] = {
-        task: action.payload,
+        task: action.payload.task,
 
         note: "",
 
@@ -36,7 +39,7 @@ export const taskListSlice = createSlice({
         dueDate: null,
         deferDate: null,
 
-        project: null,
+        project: newTaskProject,
 
         created: Date.now(),
         modified: Date.now(),

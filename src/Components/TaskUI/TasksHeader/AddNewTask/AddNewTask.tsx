@@ -9,13 +9,13 @@ import { useAppDispatch } from "../../../../hooks";
  * Returns the AddNewTask Button, and the input it controls
  * @return {FunctionComponent}
  */
-function AddNewTask() {
+function AddNewTask(projectId: string | null) {
   const [taskText, setTaskText] = useState("");
 
   const dispatch = useAppDispatch();
 
   const createNewTask = () => {
-    dispatch(addTask(taskText.trim()));
+    dispatch(addTask({ task: taskText.trim(), project: projectId }));
     setTaskText("");
   };
 

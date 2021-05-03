@@ -4,12 +4,11 @@ import { getTasks } from "../../TaskUI/TaskList/TaskListSlice";
 import TinyProject from "../Project/TinyProject";
 import { getProjects } from "./ProjectListSlice";
 import Task from "../../TaskUI/Task/Task";
-import { useRouteMatch, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ProjectList() {
   const projectList = useSelector(getProjects);
   const taskList = useSelector(getTasks);
-  const match = useRouteMatch();
 
   const getTaskById = (taskId: string) => taskList.byId[taskId];
 

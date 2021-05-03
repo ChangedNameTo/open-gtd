@@ -83,18 +83,18 @@ function TaskList(projectId: string | null) {
 
   return (
     <Fragment>
-      {/* Projects list (only on smallest breakpoint) */}
+      {/* Task list (only on smallest breakpoint) */}
       <div className="mt-10 sm:hidden">
         <div className="px-4 sm:px-6">
           <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
-            Projects
+            Tasks
           </h2>
         </div>
         <ul className="mt-3 border-t border-gray-200 divide-y divide-gray-100">
           {buildTinyTaskList()}
         </ul>
       </div>
-      {/* Projects table (small breakpoint and up) */}
+      {/* Task table (small breakpoint and up) */}
       <div className="hidden sm:block">
         <div className="align-middle inline-block min-w-full border-b border-gray-200">
           <table className="min-w-full" id="taskList">

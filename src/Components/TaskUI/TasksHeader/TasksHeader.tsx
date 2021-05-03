@@ -21,7 +21,7 @@ function TaskHeader(projectId: string | null) {
         >
           Share
         </button>
-        {AddNewTask()}
+        {AddNewTask(projectId)}
       </div>
     </div>
   );

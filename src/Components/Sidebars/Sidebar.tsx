@@ -21,17 +21,23 @@ const teams = [
  * @return {FunctionComponent}
  */
 function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
-  const currentURL = useLocation();
+  const currentURL = useLocation().pathname;
+  const section = currentURL ? currentURL.split("/")[1] : null;
 
-  const isActive = (href: string) => currentURL.pathname === href;
+  const isActive = (href: string) => section === href;
 
   const navigation = [
-    { name: "Tasks", href: "/", icon: HomeIcon, current: isActive("/") },
+    {
+      name: "Inbox",
+      href: "/inbox",
+      icon: HomeIcon,
+      current: isActive("inbox"),
+    },
     {
       name: "Projects",
       href: "/projects",
       icon: ClipboardListIcon,
-      current: isActive("/projects"),
+      current: isActive("projects"),
     },
   ];
 
@@ -135,17 +141,29 @@ function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
             </div>
           </nav>
         </div>
-        <div className="flex-shrink-0 flex bg-gray-200 p-4">
-          <ul className="divide">
-            <li key={1} className="py-4 flex">
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-900">
-                  OpenGTD Github
-                </p>
-                <p className="text-sm text-gray-500">Follow the project</p>
+        <div className="flex-shrink-0 bg-gray-700 p-4 divide-y">
+          <a
+            href="https://github.com/ChangedNameTo/open-gtd"
+            className="flex-shrink-0 w-full group block"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div className="flex items-center">
+              <div>
+                <img
+                  className="inline-block h-9 w-9 rounded-full"
+                  src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                  alt=""
+                />
               </div>
-            </li>
-          </ul>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-white">OpenGTD Github</p>
+                <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">
+                  Follow the Project
+                </p>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </div>
