@@ -41,7 +41,7 @@ function TaskListFilters() {
   };
 
   return (
-    <div className="border-t w-full mx-auto sm:px-1 lg:px-3 mt-8 bg-gray-100 grid md:grid-cols-4 md:gap-2 sm:grid-cols-1">
+    <div className="border-t w-full mx-auto sm:px-1 lg:px-3 bg-gray-100 grid md:grid-cols-4 md:gap-2 sm:grid-cols-1">
       <div className={filterDivClasses()}>
         {TaskListFilterSelect(
           currentFilters.completion,

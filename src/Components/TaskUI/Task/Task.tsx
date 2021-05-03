@@ -13,7 +13,7 @@ import {
 import { DuplicateIcon as DuplicateIconSolid } from "@heroicons/react/solid";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-function Task(props: { taskId: string }) {
+function Task(props: { taskId: string; projectId?: string }) {
   const dispatch = useAppDispatch();
 
   const task = useSelector(

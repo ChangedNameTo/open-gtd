@@ -55,7 +55,7 @@ function PinnedProjects(projectId: string | null) {
   }
 
   return (
-    <div className="px-4 mt-6 sm:px-6 lg:px-8">
+    <div className="px-4 mt-6 mb-8 sm:px-6 lg:px-8">
       <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
         Pinned Projects
       </h2>

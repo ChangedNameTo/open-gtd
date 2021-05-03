@@ -1,4 +1,5 @@
 import MobileSidebar from "../Sidebars/MobileSidebar";
+import PinnedProjects from "../PinnedProjects/PinnedProjects";
 import Sidebar from "../Sidebars/Sidebar";
 import SearchHeader from "../TaskUI/SearchHeader/SearchHeader";
 import ProjectHeader from "./ProjectHeader/ProjectHeader";
@@ -17,6 +18,8 @@ function ProjectUI(sidebarOpen: boolean, setSidebarOpen: Function) {
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
           {/* Page title & actions */}
           {ProjectHeader()}
+          {/* Pinned projects */}
+          {PinnedProjects(null)}
           {/* Project List */}
           {ProjectList()}
         </main>
