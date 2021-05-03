@@ -7,11 +7,12 @@ import thunk from "redux-thunk";
 import taskReducer from "./Components/TaskUI/TaskList/TaskListSlice";
 import taskFilterReducer from "./Components/TaskUI/TaskListFilter/TaskFilterSlice";
 import taskFilterPresetReducer from "./Components/TaskFilterPreset/TaskFilterPresetSlice";
+import projectReducer from "./Components/ProjectUI/ProjectList/ProjectListSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["tasks", "presets"],
+  blacklist: ["tasks", "presets", "projects"],
 };
 
 const taskPersistConfig = {
@@ -30,10 +31,16 @@ const presetsPersistConfig = {
   storage,
 };
 
+const projectsPersistConfig = {
+  key: "projects",
+  storage,
+};
+
 const reducers = combineReducers({
   tasks: persistReducer(taskPersistConfig, taskReducer),
   filters: persistReducer(filtersPersistConfig, taskFilterReducer),
   presets: persistReducer(presetsPersistConfig, taskFilterPresetReducer),
+  projects: persistReducer(projectsPersistConfig, projectReducer),
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

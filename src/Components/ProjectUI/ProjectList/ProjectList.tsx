@@ -1,9 +1,11 @@
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
 import Project from "../Project/Project";
 import TinyProject from "../Project/TinyProject";
+import { getProjects } from "./ProjectListSlice";
 
 function ProjectList() {
-  const projectList = { byId: {}, allIds: [] };
+  const projectList = useSelector(getProjects);
 
   const buildTinyProjectList = () => {
     if (projectList.allIds) {

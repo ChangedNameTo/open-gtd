@@ -36,6 +36,8 @@ export const taskListSlice = createSlice({
         dueDate: null,
         deferDate: null,
 
+        project: null,
+
         created: Date.now(),
         modified: Date.now(),
         completed: -1,
@@ -89,6 +91,12 @@ export const taskListSlice = createSlice({
       task.dueDate = action.payload.newDate;
       task.modified = Date.now();
     },
+    updateTaskTaskProject: (state: TaskList, action: PayloadAction<any>) => {
+      const task = state.taskList.byId[action.payload.taskId];
+
+      task.project = action.payload.newProject;
+      task.modified = Date.now();
+    },
     archiveTask: (state: TaskList, action: PayloadAction<any>) => {
       const task = state.taskList.byId[action.payload.taskId];
 
@@ -107,6 +115,7 @@ export const {
   updateTaskTaskPriority,
   updateTaskTaskDeferDate,
   updateTaskTaskDueDate,
+  updateTaskTaskProject,
   archiveTask,
 } = taskListSlice.actions;
 

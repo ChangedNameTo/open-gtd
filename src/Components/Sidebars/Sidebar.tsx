@@ -22,7 +22,6 @@ const teams = [
  */
 function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
   const currentURL = useLocation();
-  console.log(currentURL.pathname);
 
   const isActive = (href: string) => currentURL.pathname === href;
 

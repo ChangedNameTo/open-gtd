@@ -20,11 +20,14 @@ import {
   updateTaskTaskDueDate,
   selectTask,
   archiveTask,
+  updateTaskTaskProject,
 } from "../TaskList/TaskListSlice";
 
 import PrioritySelect from "./PrioritySelect";
 import ButtonGroup from "../../ButtonGroup/ButtonGroup";
 import { TrashIcon } from "@heroicons/react/solid";
+import ProjectSelect from "./ProjectSelect";
+import { getProjects } from "../../ProjectUI/ProjectList/ProjectListSlice";
 /**
  * After clicking on a task in
  * @returns {FunctionComponent}
@@ -32,6 +35,8 @@ import { TrashIcon } from "@heroicons/react/solid";
 function SelectedTask() {
   const selectedTaskId = useSelector(getSelectedTaskId);
   const selectedTask: Task | null = useSelector(getSelectedTask);
+  const projectList = useSelector(getProjects);
+
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
 
@@ -80,6 +85,12 @@ function SelectedTask() {
     const newDate = e ? e.getTime() : null;
     dispatch(
       updateTaskTaskDueDate({ newDate: newDate, taskId: selectedTaskId })
+    );
+  };
+
+  const updateTaskProject = (projectID: string) => {
+    dispatch(
+      updateTaskTaskProject({ newProject: projectID, taskId: selectedTaskId })
     );
   };
 
@@ -214,6 +225,15 @@ function SelectedTask() {
                             TaskStatus.Dropped,
                           ],
                           "selectedTask"
+                        )}
+                      </div>
+                      {/* Project Select */}
+                      <div className="w-full">
+                        {taskSubsectionHeader("Project", "Project")}
+                        {ProjectSelect(
+                          projectList,
+                          selectedTask.project,
+                          updateTaskProject
                         )}
                       </div>
                       {/* Tags */}

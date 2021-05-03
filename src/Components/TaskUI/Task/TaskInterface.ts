@@ -25,8 +25,11 @@ export default interface Task {
   // One of the five possible priorities, default None
   priority: TaskPriority;
 
+  // Select when this task is actually needing to be completed
   dueDate: number | null;
   deferDate: number | null;
+
+  project: string | null;
 
   // Timestamps
   readonly created: number;

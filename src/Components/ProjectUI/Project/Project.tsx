@@ -1,4 +1,11 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+
 function Project(props: { projectId: string }) {
+  const project = useSelector(
+    (state: RootState) => state.projects.projectList.byId[props.projectId]
+  );
+
   return (
     <tr key={props.projectId} id={`projectId${props.projectId}`}>
       <td className="px-6 py-0.5 text-sm text-gray-500 font-medium">icon</td>
@@ -10,7 +17,7 @@ function Project(props: { projectId: string }) {
             aria-hidden="true"
           />
           <div className="truncate hover:text-gray-600 cursor-pointer">
-            project text
+            {project.project}
           </div>
         </div>
       </td>

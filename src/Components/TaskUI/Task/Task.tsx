@@ -35,6 +35,12 @@ function Task(props: { taskId: string }) {
 
   const taskText = () => (task.task ? task.task : "Empty task text");
 
+  const projectName = useSelector((state: RootState) =>
+    task.project ? state.projects.projectList.byId[task.project].project : null
+  );
+
+  const projectText = () => (task.project ? projectName : "-");
+
   const taskCheckboxIcon = () => {
     const classes = "text-gray-400 mt-1 h-7 w-7 cursor-pointer";
     if (task.status === TaskStatus.Active) {
@@ -120,7 +126,7 @@ function Task(props: { taskId: string }) {
       </td>
       {/* Task Name */}
       <td
-        className="px-6 py-0.5 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900 cursor-pointer"
+        className="px-6 py-0.5 max-w-0 w-2/3 whitespace-nowrap text-sm font-medium text-gray-900 cursor-pointer"
         onClick={(e) => setSelectTask(e)}
       >
         <div className="flex items-center" onClick={(e) => setSelectTask(e)}>
@@ -133,6 +139,24 @@ function Task(props: { taskId: string }) {
             onClick={(e) => setSelectTask(e)}
           >
             {taskText()}
+          </div>
+        </div>
+      </td>
+      {/* Task Project Parent */}
+      <td
+        className="px-6 py-0.5 max-w-0 w-1/3 whitespace-nowrap text-sm font-medium text-gray-900 cursor-pointer"
+        onClick={(e) => setSelectTask(e)}
+      >
+        <div className="flex items-center" onClick={(e) => setSelectTask(e)}>
+          <div
+            className={"flex-shrink-0 w-2.5 h-2.5 rounded-full"}
+            aria-hidden="true"
+          />
+          <div
+            className="truncate hover:text-gray-600 cursor-pointer"
+            onClick={(e) => setSelectTask(e)}
+          >
+            {projectText()}
           </div>
         </div>
       </td>
