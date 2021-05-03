@@ -14,7 +14,10 @@ export default function Example() {
       <Route exact path="/">
         {TaskUI(sidebarOpen, setSidebarOpen)}
       </Route>
-      <Route path="/projects">{ProjectUI(sidebarOpen, setSidebarOpen)}</Route>
+      <Route exact path="/projects">
+        {ProjectUI(sidebarOpen, setSidebarOpen)}
+      </Route>
+      <Route path="/projects/:id">{TaskUI(sidebarOpen, setSidebarOpen)}</Route>
       <Route>
         <div className="h-screen flex overflow-hidden bg-white">
           {/* Slideout sidebar for mobile */}

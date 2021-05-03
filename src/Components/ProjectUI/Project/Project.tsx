@@ -1,7 +1,10 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
+import { Link, useRouteMatch } from "react-router-dom";
 
 function Project(props: { projectId: string }) {
+  let match = useRouteMatch();
+
   const project = useSelector(
     (state: RootState) => state.projects.projectList.byId[props.projectId]
   );
@@ -11,15 +14,17 @@ function Project(props: { projectId: string }) {
       <td className="px-6 py-0.5 text-sm text-gray-500 font-medium">icon</td>
       {/* Task Name */}
       <td className="px-6 py-0.5 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900 cursor-pointer">
-        <div className="flex items-center">
-          <div
-            className={"flex-shrink-0 w-2.5 h-2.5 rounded-full"}
-            aria-hidden="true"
-          />
-          <div className="truncate hover:text-gray-600 cursor-pointer">
-            {project.project}
+        <Link to={`${match.url}/${props.projectId}`}>
+          <div className="flex items-center">
+            <div
+              className={"flex-shrink-0 w-2.5 h-2.5 rounded-full"}
+              aria-hidden="true"
+            />
+            <div className="truncate hover:text-gray-600 cursor-pointer">
+              {project.project}
+            </div>
           </div>
-        </div>
+        </Link>
       </td>
       {/* Priority */}
       <td className="py-0.5 text-sm text-gray-500 font-medium text-center">

@@ -9,7 +9,7 @@ import { getFilters } from "../TaskListFilter/TaskFilterSlice";
  * Creates the Task Rows for the main task UI.
  * @returns {FunctionComponent}
  */
-function TaskList() {
+function TaskList(projectId: string | null) {
   const taskList = useSelector(getTasks);
   const taskListFilters = useSelector(getFilters);
 
@@ -45,6 +45,14 @@ function TaskList() {
     return getTaskById(taskId).archived === null;
   };
 
+  const inSelectedProjectFilter = (taskId: string) => {
+    if (projectId) {
+      return getTaskById(taskId).project === projectId;
+    } else {
+      return true;
+    }
+  };
+
   const buildTinyTaskList = () => {
     if (taskList.allIds) {
       return taskList.allIds
@@ -52,6 +60,7 @@ function TaskList() {
         .filter(priorityFilter)
         .filter(hasNoteFilter)
         .filter(archivedFilter)
+        .filter(inSelectedProjectFilter)
         .map((taskId, index) => {
           return <TinyTask taskId={taskId} key={index} />;
         });
@@ -65,6 +74,7 @@ function TaskList() {
         .filter(priorityFilter)
         .filter(hasNoteFilter)
         .filter(archivedFilter)
+        .filter(inSelectedProjectFilter)
         .map((taskId, index) => {
           return <Task taskId={taskId} key={index} />;
         });

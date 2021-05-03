@@ -48,7 +48,12 @@ const pinnedProjects = projects.filter((project) => project.pinned);
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-function PinnedProjects() {
+
+function PinnedProjects(projectId: string | null) {
+  if (projectId) {
+    return;
+  }
+
   return (
     <div className="px-4 mt-6 sm:px-6 lg:px-8">
       <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">

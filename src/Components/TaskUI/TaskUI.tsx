@@ -6,8 +6,14 @@ import SelectedTask from "./SelectedTask/SelectedTask";
 import MobileSidebar from "../Sidebars/MobileSidebar";
 import Sidebar from "../Sidebars/Sidebar";
 import TaskHeader from "./TasksHeader/TasksHeader";
+import { useLocation } from "react-router";
 
 function TaskUI(sidebarOpen: boolean, setSidebarOpen: Function) {
+  const currentURL = useLocation().pathname;
+
+  // If a project has been passed in, this should display the Projects task view, not the Inbox
+  const projectId = currentURL ? currentURL.split("/")[2] : null;
+
   return (
     <div className="h-screen flex overflow-hidden bg-white">
       {/* Slideout sidebar for mobile */}
@@ -20,13 +26,13 @@ function TaskUI(sidebarOpen: boolean, setSidebarOpen: Function) {
         {SearchHeader(sidebarOpen, setSidebarOpen)}
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
           {/* Page title & actions */}
-          {TaskHeader()}
+          {TaskHeader(projectId)}
           {/* Pinned projects */}
-          {PinnedProjects()}
+          {PinnedProjects(projectId)}
           {/* Task Filters */}
           {TaskListFilters()}
           {/* Project List */}
-          {TaskList()}
+          {TaskList(projectId)}
         </main>
       </div>
       {SelectedTask()}
