@@ -5,16 +5,9 @@ import {
   ClipboardListIcon,
 } from "@heroicons/react/outline";
 
-import { Link, useLocation } from "react-router-dom";
-
-// @ts-ignore: Unreachable code error
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-const teams = [
-  { name: "Doesn't Do Anything", href: "#", bgColorClass: "bg-indigo-500" },
-];
+import { useLocation } from "react-router-dom";
+import NavLink from "../Sidebars/NavLink";
+import SecondaryLink from "./SecondaryLink";
 
 /**
  * Returns the Sidebar component
@@ -39,6 +32,10 @@ function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
       icon: ClipboardListIcon,
       current: isActive("projects"),
     },
+  ];
+
+  const teams = [
+    { name: "Doesn't Do Anything", href: "#", bgColorClass: "bg-indigo-500" },
   ];
 
   return (
@@ -82,31 +79,9 @@ function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
           {/* Navigation */}
           <nav className="px-3 mt-6">
             <div className="space-y-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  to={`${item.href}`}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-200 text-gray-900"
-                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
-                    "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  <item.icon
-                    className={classNames(
-                      item.current
-                        ? "text-gray-500"
-                        : "text-gray-400 group-hover:text-gray-500",
-                      "mr-3 h-6 w-6"
-                    )}
-                    aria-hidden="true"
-                  />
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                return NavLink(item);
+              })}
             </div>
             <div className="mt-8">
               {/* Secondary navigation */}
@@ -121,22 +96,7 @@ function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
                 role="group"
                 aria-labelledby="teams-headline"
               >
-                {teams.map((team) => (
-                  <a
-                    key={team.name}
-                    href={team.href}
-                    className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50"
-                  >
-                    <span
-                      className={classNames(
-                        team.bgColorClass,
-                        "w-2.5 h-2.5 mr-4 rounded-full"
-                      )}
-                      aria-hidden="true"
-                    />
-                    <span className="truncate">{team.name}</span>
-                  </a>
-                ))}
+                {teams.map((team) => SecondaryLink(team))}
               </div>
             </div>
           </nav>

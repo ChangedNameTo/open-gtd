@@ -121,12 +121,12 @@ function Task(props: { taskId: string; projectId?: string }) {
       id={`taskId${props.taskId}`}
       onClick={(e) => setSelectTask(e)}
     >
-      <td className="px-6 py-0.5 text-sm text-gray-500 font-medium">
+      <td className="px-2 py-0.5 text-sm text-gray-500 font-medium">
         {taskCheckboxIcon()}
       </td>
       {/* Task Name */}
       <td
-        className="px-6 py-0.5 max-w-0 w-2/3 whitespace-nowrap text-sm font-medium text-gray-900 cursor-pointer"
+        className="px-2 py-0.5 max-w-0 w-2/3 whitespace-nowrap text-sm font-medium text-gray-900 cursor-pointer"
         onClick={(e) => setSelectTask(e)}
       >
         <div className="flex items-center" onClick={(e) => setSelectTask(e)}>

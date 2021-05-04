@@ -26,6 +26,7 @@ export default function Example() {
           {Sidebar(sidebarOpen, setSidebarOpen)}
           {/* Main column */}
           <div className="flex flex-col w-0 flex-1 overflow-hidden">
+            {/* TODO: Change this to be an actual error screen that automatically creates a github issue */}
             <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
               oops
             </main>
