@@ -11,9 +11,10 @@ export default function Example() {
 
   return (
     <Switch>
-      <Route exact path="/inbox">
+      <Route exact path="/">
         {TaskUI(sidebarOpen, setSidebarOpen)}
       </Route>
+      <Route path="/inbox">{TaskUI(sidebarOpen, setSidebarOpen)}</Route>
       <Route exact path="/projects">
         {ProjectUI(sidebarOpen, setSidebarOpen)}
       </Route>
