@@ -41,8 +41,28 @@ function Task(props: { taskId: string; projectId?: string }) {
 
   const projectText = () => (task.project ? projectName : "-");
 
+  const taskCheckboxIconColor = () => {
+    const now = Date.now();
+
+    if (!task.dueDate) {
+      // No data
+      return "text-gray-300";
+    }
+
+    if (now > task.dueDate + 86400000) {
+      // Overdue
+      return "text-red-300";
+    } else if (now < task.dueDate - 86400000) {
+      // Due Future
+      return "text-gray-300";
+    } else {
+      // Due Today
+      return "text-yellow-300";
+    }
+  };
+
   const taskCheckboxIcon = () => {
-    const classes = "text-gray-400 mt-1 h-7 w-7 cursor-pointer";
+    const classes = `${taskCheckboxIconColor()} mt-1 h-7 w-7 cursor-pointer`;
     if (task.status === TaskStatus.Active) {
       return (
         <svg

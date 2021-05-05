@@ -53,6 +53,24 @@ function TaskList(projectId: string | null) {
     }
   };
 
+  const sortFunction = (taskIdA: string, taskIdB: string) => {
+    const taskA = getTaskById(taskIdA);
+    const taskB = getTaskById(taskIdB);
+
+    if (!taskA) {
+      return -1;
+    }
+    if (!taskB) {
+      return 1;
+    }
+
+    if (taskA.dueDate > taskB.dueDate) return 1;
+    if (taskA.dueDate < taskB.dueDate) return -1;
+    if (taskA.deferDate > taskB.deferDate) return 1;
+    if (taskA.deferDate < taskB.deferDate) return -1;
+    return 0;
+  };
+
   const buildTinyTaskList = () => {
     if (taskList.allIds) {
       return taskList.allIds
@@ -61,6 +79,7 @@ function TaskList(projectId: string | null) {
         .filter(hasNoteFilter)
         .filter(archivedFilter)
         .filter(inSelectedProjectFilter)
+        .sort(sortFunction)
         .map((taskId, index) => {
           return <TinyTask taskId={taskId} key={index} />;
         });
@@ -75,6 +94,7 @@ function TaskList(projectId: string | null) {
         .filter(hasNoteFilter)
         .filter(archivedFilter)
         .filter(inSelectedProjectFilter)
+        .sort(sortFunction)
         .map((taskId, index) => {
           return <Task taskId={taskId} key={index} />;
         });
