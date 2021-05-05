@@ -6,6 +6,7 @@ import SelectedTask from "./SelectedTask/SelectedTask";
 import MobileSidebar from "../Sidebars/MobileSidebar";
 import Sidebar from "../Sidebars/Sidebar";
 import TaskHeader from "./TasksHeader/TasksHeader";
+import TopTaskHeader from "./TasksHeader/TopTaskHeader";
 import { useLocation } from "react-router";
 
 function TaskUI(sidebarOpen: boolean, setSidebarOpen: Function) {
@@ -25,6 +26,7 @@ function TaskUI(sidebarOpen: boolean, setSidebarOpen: Function) {
         {/* Search header */}
         {SearchHeader(sidebarOpen, setSidebarOpen)}
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
+          {TopTaskHeader(projectId)}
           {/* Page title & actions */}
           {TaskHeader(projectId)}
           {/* Pinned projects */}

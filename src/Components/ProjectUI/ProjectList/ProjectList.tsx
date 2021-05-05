@@ -24,13 +24,31 @@ function ProjectList() {
     }
   };
 
+  const sortFunction = (taskIdA: string, taskIdB: string) => {
+    const taskA = getTaskById(taskIdA);
+    const taskB = getTaskById(taskIdB);
+
+    if (!taskA) {
+      return -1;
+    }
+    if (!taskB) {
+      return 1;
+    }
+
+    if (taskA.dueDate > taskB.dueDate) return 1;
+    if (taskA.dueDate < taskB.dueDate) return -1;
+    if (taskA.deferDate > taskB.deferDate) return 1;
+    if (taskA.deferDate < taskB.deferDate) return -1;
+    return 0;
+  };
+
   const buildProjectTaskList = (project: string) => {
     const projectFilteredTaskIds = taskList.allIds.filter((task) =>
       taskInProjectFilter(project, task)
     );
 
     if (projectFilteredTaskIds.length > 0) {
-      return projectFilteredTaskIds.map((taskId, index) => {
+      return projectFilteredTaskIds.sort(sortFunction).map((taskId, index) => {
         return <Task projectId={project} taskId={taskId} key={index} />;
       });
     } else {

@@ -4,5 +4,7 @@
     "cSpell.words": [
         "immerable"
     ],
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "diffEditor.wordWrap": "on",
+    "editor.wordWrap": "on"
 }

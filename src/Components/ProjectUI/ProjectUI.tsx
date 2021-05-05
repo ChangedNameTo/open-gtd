@@ -2,8 +2,8 @@ import MobileSidebar from "../Sidebars/MobileSidebar";
 import PinnedProjects from "../PinnedProjects/PinnedProjects";
 import Sidebar from "../Sidebars/Sidebar";
 import SearchHeader from "../TaskUI/SearchHeader/SearchHeader";
-import ProjectHeader from "./ProjectHeader/ProjectHeader";
 import ProjectList from "./ProjectList/ProjectList";
+import TopProjectHeader from "./ProjectHeader/TopProjectHeader";
 
 function ProjectUI(sidebarOpen: boolean, setSidebarOpen: Function) {
   return (
@@ -16,8 +16,9 @@ function ProjectUI(sidebarOpen: boolean, setSidebarOpen: Function) {
       <div className="flex flex-col w-0 flex-1 overflow-hidden">
         {SearchHeader(sidebarOpen, setSidebarOpen)}
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
+          {TopProjectHeader()}
           {/* Page title & actions */}
-          {ProjectHeader()}
+          {/* {ProjectHeader()} */}
           {/* Pinned projects */}
           {PinnedProjects(null)}
           {/* Project List */}
