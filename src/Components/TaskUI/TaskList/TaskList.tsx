@@ -53,6 +53,14 @@ function TaskList(projectId: string | null) {
     }
   };
 
+  const excludeProjectedTasksFilter = (taskId: string) => {
+    if (!projectId) {
+      return getTaskById(taskId).project === null;
+    } else {
+      return true;
+    }
+  };
+
   const sortFunction = (taskIdA: string, taskIdB: string) => {
     const taskA = getTaskById(taskIdA);
     const taskB = getTaskById(taskIdB);
@@ -79,6 +87,7 @@ function TaskList(projectId: string | null) {
         .filter(hasNoteFilter)
         .filter(archivedFilter)
         .filter(inSelectedProjectFilter)
+        .filter(excludeProjectedTasksFilter)
         .sort(sortFunction)
         .map((taskId, index) => {
           return <TinyTask taskId={taskId} key={index} />;
@@ -94,6 +103,7 @@ function TaskList(projectId: string | null) {
         .filter(hasNoteFilter)
         .filter(archivedFilter)
         .filter(inSelectedProjectFilter)
+        .filter(excludeProjectedTasksFilter)
         .sort(sortFunction)
         .map((taskId, index) => {
           return <Task taskId={taskId} key={index} />;

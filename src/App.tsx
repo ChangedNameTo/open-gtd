@@ -6,7 +6,7 @@ import { Switch, Route } from "react-router";
 import TaskUI from "./Components/TaskUI/TaskUI";
 import ProjectUI from "./Components/ProjectUI/ProjectUI";
 
-export default function Example() {
+export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (

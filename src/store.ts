@@ -8,11 +8,12 @@ import taskReducer from "./Components/TaskUI/TaskList/TaskListSlice";
 import taskFilterReducer from "./Components/TaskUI/TaskListFilter/TaskFilterSlice";
 import taskFilterPresetReducer from "./Components/TaskFilterPreset/TaskFilterPresetSlice";
 import projectReducer from "./Components/ProjectUI/ProjectList/ProjectListSlice";
+import uiCommsReducer from "./Components/UICommunications/UICommunicationsSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["tasks", "presets", "projects"],
+  blacklist: ["tasks", "presets", "projects", "comms"],
 };
 
 const taskPersistConfig = {
@@ -36,11 +37,18 @@ const projectsPersistConfig = {
   storage,
 };
 
+const uiCommsPersistConfig = {
+  key: "comms",
+  storage,
+  blacklist: ["exportJSONModalOpen"],
+};
+
 const reducers = combineReducers({
   tasks: persistReducer(taskPersistConfig, taskReducer),
   filters: persistReducer(filtersPersistConfig, taskFilterReducer),
   presets: persistReducer(presetsPersistConfig, taskFilterPresetReducer),
   projects: persistReducer(projectsPersistConfig, projectReducer),
+  comms: persistReducer(uiCommsPersistConfig, uiCommsReducer),
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

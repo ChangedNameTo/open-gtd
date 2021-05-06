@@ -45,7 +45,7 @@ function AddNewProject() {
             <Disclosure.Panel static>
               <div className="flex flex-row relative order-2">
                 <input
-                  className="ml-4 px-4 border border-purple-500 rounded-md font-medium text-sm shadow-sm focus:ring-purple-500 focus:outline-none"
+                  className="ml-4 px-4 border border-purple-500 rounded-md font-medium text-sm shadow-sm focus:ring-purple-500 focus:outline-none text-black"
                   type="text"
                   id="addTaskInput"
                   placeholder="Enter new project"

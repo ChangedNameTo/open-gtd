@@ -1,4 +1,4 @@
-import UserProfileDropdown from "../UserProfileDropdown";
+import UserProfileDropdown from "../UserProfileDropdown/UserProfileDropdown";
 import {
   HomeIcon,
   SearchIcon,
@@ -15,9 +15,10 @@ import SecondaryLink from "./SecondaryLink";
  */
 function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
   const currentURL = useLocation().pathname;
+
   const section = currentURL ? currentURL.split("/")[1] : null;
 
-  const isActive = (href: string) => section === href;
+  const isActive = (href: string) => (section ? section === href : false);
 
   const navigation = [
     {
@@ -101,7 +102,7 @@ function Sidebar(sidebarOpen: boolean, setSidebarOpen: Function) {
             </div>
           </nav>
         </div>
-        <div className="flex-shrink-0 bg-gray-700 p-4 divide-y">
+        <div className="flex-shrink-0 bg-purple-700 p-4 divide-y">
           <a
             href="https://github.com/ChangedNameTo/open-gtd"
             className="flex-shrink-0 w-full group block"
