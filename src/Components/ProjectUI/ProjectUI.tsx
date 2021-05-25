@@ -6,6 +6,7 @@ import SearchHeader from "../TaskUI/SearchHeader/SearchHeader";
 import ProjectList from "./ProjectList/ProjectList";
 import TopProjectHeader from "./ProjectHeader/TopProjectHeader";
 import ExportState from "../UserProfileDropdown/ExportState";
+import ImportState from "../UserProfileDropdown/ImportState";
 
 function ProjectUI(sidebarOpen: boolean, setSidebarOpen: Function) {
   return (
@@ -28,6 +29,7 @@ function ProjectUI(sidebarOpen: boolean, setSidebarOpen: Function) {
       </div>
       {SelectedTask()}
       {ExportState()}
+      {ImportState()}
     </div>
   );
 }

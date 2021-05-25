@@ -4,7 +4,9 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getExportJSONModalOpen,
+  getImportJSONModalOpen,
   setExportJSONModal,
+  setImportJSONModal,
 } from "../UICommunications/UICommunicationsSlice";
 
 // @ts-ignore: Unreachable code error
@@ -14,10 +16,15 @@ function classNames(...classes) {
 
 function UserProfileDropdown() {
   const exportOpen = useSelector(getExportJSONModalOpen);
+  const importOpen = useSelector(getImportJSONModalOpen);
   const dispatch = useDispatch();
 
   const setExportOpen = () => {
     dispatch(setExportJSONModal(!exportOpen));
+  };
+
+  const setImportOpen = () => {
+    dispatch(setImportJSONModal(!importOpen));
   };
 
   const userProfileDropdownLink = (
@@ -96,7 +103,11 @@ function UserProfileDropdown() {
                   exportOpen,
                   setExportOpen
                 )}
-                {userProfileDropdownLink("Import JSON")}
+                {userProfileDropdownLink(
+                  "Import JSON",
+                  importOpen,
+                  setImportOpen
+                )}
               </div>
               <div className="py-1">
                 {userProfileDropdownLink("Get desktop app - Does Nothing")}

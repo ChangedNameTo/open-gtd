@@ -9,6 +9,7 @@ import TaskHeader from "./TasksHeader/TasksHeader";
 import TopTaskHeader from "./TasksHeader/TopTaskHeader";
 import { useLocation } from "react-router";
 import ExportState from "../UserProfileDropdown/ExportState";
+import ImportState from "../UserProfileDropdown/ImportState";
 
 function TaskUI(sidebarOpen: boolean, setSidebarOpen: Function) {
   const currentURL = useLocation().pathname;
@@ -40,6 +41,7 @@ function TaskUI(sidebarOpen: boolean, setSidebarOpen: Function) {
       </div>
       {SelectedTask()}
       {ExportState()}
+      {ImportState()}
     </div>
   );
 }
