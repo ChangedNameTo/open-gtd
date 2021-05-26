@@ -7,6 +7,7 @@ import ProjectList from "./ProjectList/ProjectList";
 import TopProjectHeader from "./ProjectHeader/TopProjectHeader";
 import ExportState from "../UserProfileDropdown/ExportState";
 import ImportState from "../UserProfileDropdown/ImportState";
+import TaskListFilters from "../TaskUI/TaskListFilter/TaskListFilters";
 
 function ProjectUI(sidebarOpen: boolean, setSidebarOpen: Function) {
   return (
@@ -23,6 +24,8 @@ function ProjectUI(sidebarOpen: boolean, setSidebarOpen: Function) {
           {TopProjectHeader()}
           {/* Pinned projects */}
           {PinnedProjects(null)}
+          {/* Task Filters */}
+          {TaskListFilters()}
           {/* Project List */}
           {ProjectList()}
         </main>

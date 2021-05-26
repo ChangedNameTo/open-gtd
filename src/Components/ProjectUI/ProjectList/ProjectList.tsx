@@ -3,12 +3,14 @@ import { useSelector } from "react-redux";
 import { getTasks } from "../../TaskUI/TaskList/TaskListSlice";
 import TinyProject from "../Project/TinyProject";
 import { getProjects } from "./ProjectListSlice";
+import { getFilters } from "../../TaskUI/TaskListFilter/TaskFilterSlice";
 import Task from "../../TaskUI/Task/Task";
 import { Link } from "react-router-dom";
 
 function ProjectList() {
   const projectList = useSelector(getProjects);
   const taskList = useSelector(getTasks);
+  const taskListFilters = useSelector(getFilters);
 
   const getTaskById = (taskId: string) => taskList.byId[taskId];
 
@@ -16,11 +18,46 @@ function ProjectList() {
     return getTaskById(taskId).project === projectId;
   };
 
+  const hasNoteFilter = (taskId: string) => {
+    if (taskListFilters.hasNote) {
+      return getTaskById(taskId).note !== "";
+    } else if (taskListFilters.hasNote === false) {
+      return getTaskById(taskId).note === "";
+    } else {
+      return true;
+    }
+  };
+
+  const priorityFilter = (taskId: string) => {
+    if (taskListFilters.priority) {
+      return taskListFilters.priority === getTaskById(taskId).priority;
+    } else {
+      return true;
+    }
+  };
+
+  const completionFilter = (taskId: string) => {
+    if (taskListFilters.completion) {
+      return taskListFilters.completion === getTaskById(taskId).status;
+    } else {
+      return true;
+    }
+  };
+
+  const archivedFilter = (taskId: string) => {
+    return getTaskById(taskId).archived === null;
+  };
+
   const buildTinyProjectList = (project: string) => {
     if (projectList.allIds) {
-      return projectList.allIds.map((projectId, index) => {
-        return <TinyProject projectId={projectId} key={index} />;
-      });
+      return projectList.allIds
+        .filter(completionFilter)
+        .filter(priorityFilter)
+        .filter(hasNoteFilter)
+        .filter(archivedFilter)
+        .map((projectId, index) => {
+          return <TinyProject projectId={projectId} key={index} />;
+        });
     }
   };
 
@@ -48,9 +85,15 @@ function ProjectList() {
     );
 
     if (projectFilteredTaskIds.length > 0) {
-      return projectFilteredTaskIds.sort(sortFunction).map((taskId, index) => {
-        return <Task projectId={project} taskId={taskId} key={index} />;
-      });
+      return projectFilteredTaskIds
+        .filter(completionFilter)
+        .filter(priorityFilter)
+        .filter(hasNoteFilter)
+        .filter(archivedFilter)
+        .sort(sortFunction)
+        .map((taskId, index) => {
+          return <Task projectId={project} taskId={taskId} key={index} />;
+        });
     } else {
       return (
         <tr>

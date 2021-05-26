@@ -42,17 +42,19 @@ function Task(props: { taskId: string; projectId?: string }) {
   const projectText = () => (task.project ? projectName : "-");
 
   const taskCheckboxIconColor = () => {
-    const now = Date.now();
+    const now = new Date();
+    const dueDate = new Date(task.dueDate);
+    const isToday = now.toDateString() === dueDate.toDateString();
 
     if (!task.dueDate) {
       // No data
       return "text-gray-300";
     }
 
-    if (now > task.dueDate + 86400000) {
+    if (now > dueDate && !isToday) {
       // Overdue
       return "text-red-300";
-    } else if (now < task.dueDate - 86400000) {
+    } else if (now < dueDate && !isToday) {
       // Due Future
       return "text-gray-300";
     } else {
